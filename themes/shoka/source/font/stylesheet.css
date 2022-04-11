@@ -1,0 +1,13 @@
+@font-face {
+    font-family: '';
+    src: url('SourceHanSerifCN-Medium-Alphabetic.eot');
+    src: url('SourceHanSerifCN-Medium-Alphabetic.eot?#iefix') format('embedded-opentype'),
+        url('SourceHanSerifCN-Medium-Alphabetic.woff2') format('woff2'),
+        url('SourceHanSerifCN-Medium-Alphabetic.woff') format('woff'),
+        url('SourceHanSerifCN-Medium-Alphabetic.ttf') format('truetype'),
+        url('SourceHanSerifCN-Medium-Alphabetic.svg#SourceHanSerifCN-Medium-Alphabetic') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
