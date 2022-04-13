@@ -5,3 +5,16 @@
   image: https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg
   color: "#e9546b"
 
+- site: MqyGalaxy|Blog
+  owner: MqyGalaxy
+  url: https://blog.moeqy.com/
+  desc: 爱好 ACG 的温馨小窝
+  image: https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg
+  color: '#FFB6C1'
+
+- site: 雨中的博客
+  owner: 雨中
+  url: https://coolchong.cn
+  desc: 频繁记录，只因生活和你太值得❤
+  image: https://langwenchong.gitee.io/figure-bed/author.jpeg
+  color: '#FFB6C1'
