@@ -110,7 +110,7 @@ deploy:
 
 markdown:
   render: # 渲染器设置
-    html: false # 过滤 HTML 标签
+    html: true # 过滤 HTML 标签
     xhtmlOut: true # 使用 '/' 来闭合单标签 （比如 <br />）。
     breaks: true # 转换段落里的 '\n' 到 <br>。
     linkify: true # 将类似 URL 的文本自动转换为链接。
@@ -147,3 +147,17 @@ autoprefixer:
 
 
 
+algolia:
+  appId: "96JPBC9VWV"
+  apiKey: "ef8cd31b41f68505fb8a5f6e6848165a"
+  adminApiKey: "960296aa45e4bbd2fe9d54b7c4649f1a"
+  chunkSize: 5000
+  indexName: "search"
+  fields:
+    - title #必须配置
+    - path #必须配置
+    - categories #推荐配置
+    - content:strip:truncate,0,2000
+    - gallery
+    - photos
+    - tags

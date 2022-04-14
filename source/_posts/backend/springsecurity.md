@@ -1,8 +1,8 @@
 ---
 title: springsecurity
 ---
-## 1.快速开始
-### 1.引入spring security
+# 1.快速开始
+## 1.引入spring security
 ```xml
 <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
 <dependency>
@@ -14,11 +14,11 @@ title: springsecurity
 引入之后访问任何接口都会跳转到spring security提供的登陆页面，默认用户名user，密码控制台会输出
 
 ![security](https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/后端/security.webp)
-## 2.认证
-### 2.1登录校验流程
+# 认证
+## 登录校验流程
 ![jwt流程](https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/后端/jwt流程.webp)
 
-### 2.2spring security完整流程
+## spring security完整流程
 SpringSecurity的原理其实就是一个过滤器链，内部包含了提供各种功能的过滤器
 ![过滤器链](https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/后端/过滤器链.webp)
 
@@ -30,14 +30,14 @@ SpringSecurity的原理其实就是一个过滤器链，内部包含了提供各
 我们可以debug查看过滤器链的先后顺序，一共有十五个
 ![spring调试](https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/后端/spring调试.webp)
 
-### 认证流程详解
+## 认证流程详解
 ![认证流程](https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/后端/认证流程.webp)
 Authentication接口：它的实现类，表示当前访问系统的用户，封装了用户相关信息。
 AuthenticationManager接口：定义了认证Authenticationl的方法
 UserDetailsService接口：加载用户特定数据的核心接口。里面定义了一个根据用户名查询用户信息的方法。
 UserDetails接口：提供核心用户信息。通过UserDetailsService根据用户名获取处理的用户信息要封装成UserDetails对象返回。然后将这些信息封装到Authentication对象中。
 
-### 思路分析
+## 思路分析
 ![流程2](https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/后端/流程2.webp)
 登录：
     1. 自定义登录接口
@@ -52,7 +52,7 @@ UserDetails接口：提供核心用户信息。通过UserDetailsService根据用
         从redis中获取信息
         存入SecurityContextHolder中
 
-## 自定义UserDetailService在这个实现类中查询数据库
+# 自定义UserDetailService在这个实现类中查询数据库
 我们可以自定义一个UserDetailsService，让springSecurity使用我们的UserDetailService，我们自己的UserDetailService可以从数据库中查询数据库用户名密码
 创建一个类实现UserDetailsService接口，重写其中的方法。更加用户名从数据库中查询用户信息
 
