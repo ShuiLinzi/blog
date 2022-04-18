@@ -4,7 +4,7 @@ date: 2021-09-30
 tags: 
 - Java
 categories:
-- "后端"
+    - [学习笔记, Java]
 ---
 [[toc]]
 ## 哪些数据适合放到缓存

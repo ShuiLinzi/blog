@@ -166,3 +166,6 @@ algolia:
 
 google_site_verification: "1Hab_KIvHH-eatUbPy7yo3aPEgWeumaimxEeMP9IX_A"
 bing_site_verification: "FD1163EC24B00B4D2041E6B93B4B785D"
+
+sitemap:
+    path: sitemap.xml

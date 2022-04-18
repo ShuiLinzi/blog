@@ -1,8 +1,8 @@
 ---
 title: Java基础知识扫盲
 date: 2022-01-01
-categories: 
-- 后端
+categories:
+    - [学习笔记, Java]
 tags:
 - Java
 - 读书笔记

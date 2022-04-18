@@ -5,7 +5,7 @@ tags:
 - 扫盲
 - java
 categories:
-- "后端"
+    - [学习笔记, Java]
 ---
 ## pom文件扫盲
 ```xml
