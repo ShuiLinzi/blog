@@ -148,9 +148,9 @@ autoprefixer:
 
 
 algolia:
-  appId: "96JPBC9VWV"
-  apiKey: "ef8cd31b41f68505fb8a5f6e6848165a"
-  adminApiKey: "960296aa45e4bbd2fe9d54b7c4649f1a"
+  appId: "ROVJW2XJUR"
+  apiKey: "0d662e286c9da7c403e06df33e2131df"
+  adminApiKey: "350fd7f8a856d75b2fc371db586058f6"
   chunkSize: 5000
   indexName: "search"
   fields:

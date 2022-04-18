@@ -12,7 +12,8 @@ menu:
     categories: /categories/ || th
     tags: /tags/ || tags
   
-  微言: /shuoshuo/ || comments
+  # 离奇bug
+  # 微言: /shuoshuo/ || comments
   友链: /friends/ || heart
   about: /about/ || user
   # links: /links/ || magic
