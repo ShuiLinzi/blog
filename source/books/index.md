@@ -317,24 +317,55 @@ layout: books
         transform: rotateY(0deg);
     }
 </style>
+# 读完
 <div id="book">
         <div class="page">
             <ul class="content">
                 <!-- 每个li标签内容代表一本书籍的所有信息 -->
-                <li>
+                  <li>
                     <div class="info">
-                        <a href="https://book.qidian.com/info/1023589917/" target="_blank" rel="noreferrer noopener" class="book-container">
-                            <div class="book" title="水浒传">
-                                <img src="https://cdn.jsdelivr.net/gh/casteller/berrychenpic/20211112007.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/casteller/berrychenpic/20211112007.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="水浒传">
+                        <a href="" target="_blank" rel="noreferrer noopener" class="book-container">
+                            <div class="book" title="被讨厌的勇气">
+                                <img src="https://cdn.jsdelivr.net/gh/Kerisu/image@master/书/image.4eu6y0whcwc.webp" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Kerisu/image@master/书/image.4eu6y0whcwc.webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="水浒传">
                             </div>
                         </a>
                         <div class="info-card">
                             <div class="hidden-content">
-                                <p class="text">《水浒传》是一部以描写古代农民起义为题材的长篇小说。它形象地描绘了农民起义从发生、发展直至失败的全过程，深刻揭示了起义的社会根源，满腔热情地歌颂了起义英雄的反抗斗争和他们的社会理想，也具体揭示了起义失败的内在历史原因。</p>
+                                <p class="text">「被讨厌的勇气」并不是要去吸引被讨厌的负向能量，而是，如果这是我生命想绽放出最美的光彩，那么，即使有被讨厌的可能，我都要用自己的双手双脚往那里走去。」</p>
                             </div>
-                            <h3>《水浒传》</h3>
-                            <p>作者：施耐庵</p>
-                            <p>出版时间：2005-04-01</p>
+                            <h3>《被讨厌的勇气》</h3>
+                            <p>作者： [日] 岸见一郎 / [日] 古贺史健</p>
+                            <p>出版时间：2015-3-1</p>
+                                <span>读书笔记：</span>
+                                <a href="" target="_blank" rel="noopener noreferrer"> 暂无 </a>
+                            <p>
+                                <span>推荐指数：</span>
+                                <span></span>
+                                <!-- 推荐指数，多少个星星就有以下多少个i标签 -->
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                            </p>
+                        </div>
+                    </div>
+                </li>   
+                <!-- 每个li标签内容代表一本书籍的所有信息 -->
+               <li>
+                    <div class="info">
+                        <a href="" target="_blank" rel="noreferrer noopener" class="book-container">
+                            <div class="book" title="人类简史">
+                                <img src="https://cdn.jsdelivr.net/gh/Kerisu/image@master/书/人类简史.webp" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Kerisu/image@master/书/人类简史.webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="水浒传">
+                            </div>
+                        </a>
+                        <div class="info-card">
+                            <div class="hidden-content">
+                                <p class="text">十万年前，地球上至少有六种不同的人但今日，世界舞台为什么只剩下了我们自己？从只能啃食虎狼吃剩的残骨的猿人，到跃居食物链顶端的智人，从雪维洞穴壁上的原始人手印，到阿姆斯壮踩上月球的脚印，从认知革命、农业革命，到科学革命、生物科技革命，我们如何登上世界舞台成为万物之灵的？</p>
+                            </div>
+                            <h3>《人类简史》</h3>
+                            <p>作者：  [以色列] 尤瓦尔·赫拉利</p>
+                            <p>出版时间：2014-11</p>
                                 <span>读书笔记：</span>
                                 <a href="" target="_blank" rel="noopener noreferrer"> 暂无 </a>
                             <p>
@@ -350,56 +381,61 @@ layout: books
                         </div>
                     </div>
                 </li>
-                <!-- 每个li标签内容代表一本书籍的所有信息 -->
-                <li>
-                    <div class="info"><a href="https://book.qidian.com/info/1023589911/" target="_blank" rel="noreferrer noopener" class="book-container">
-                            <div class="book" title="三国演义"><img src="https://cdn.jsdelivr.net/gh/casteller/berrychenpic/202111120010.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/casteller/berrychenpic/202111120010.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="三国演义"></div>
+                  <li>
+                    <div class="info">
+                        <a href="" target="_blank" rel="noreferrer noopener" class="book-container">
+                            <div class="book" title="富爸爸，穷爸爸">
+                                <img src="https://cdn.jsdelivr.net/gh/Kerisu/image@master/书/穷爸爸富爸爸.webp" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Kerisu/image@master/书/穷爸爸富爸爸.webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="富爸爸，穷爸爸">
+                            </div>
                         </a>
                         <div class="info-card">
                             <div class="hidden-content">
-                                <p class="text">《三国演义》描写了从东汉末年到西晋初年之间近百年的历史风云，以描写战争为主，诉说了东汉末年的群雄割据混战和魏、蜀、吴三国之间的政治和军事斗争，最终司马炎一统三国，建立晋朝的故事。反映了三国时代各类社会斗争与矛盾的转化，并概括了这一时代的历史巨变，塑造了一群叱咤风云的三国英雄人物。</p>
+                                <p class="text">《富爸爸，穷爸爸》是一个真实的故事，作者罗伯特・清崎的亲生父亲和朋友的父亲对金钱的看法截然不同，这使他对认识金钱产生了兴趣，最终他接受了朋友的父亲的建议，也就是书中所说的。“富爸爸”的观念，即不要做金钱的奴隶，要让金钱为我们工作，并由此成为一名极富传奇色彩的成功的投资家。</p>
                             </div>
-                            <h3>《三国演义》</h3>
-                            <p>作者：罗贯中</p>
-                            <p>出版时间：1986-06-01</p>
-                            <span>读书笔记：</span><a href="javascript:;" target="" rel="noopener noreferrer"> 暂无 </a><p></p>
-                            <p><span>推荐指数：</span><span></span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+                            <h3>《富爸爸，穷爸爸》</h3>
+                            <p>作者：（美）罗伯特・T・清崎 / 莎伦・L・莱希特</p>
+                            <p>出版时间：2000-09</p>
+                                <span>读书笔记：</span>
+                                <a href="https://shuilinzi.github.io/blog/posts/2021/book/%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8/" target="_blank" rel="noopener noreferrer"> 富爸爸，穷爸爸 </a>
+                            <p>
+                                <span>推荐指数：</span>
+                                <span></span>
+                                <!-- 推荐指数，多少个星星就有以下多少个i标签 -->
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                            </p>
                         </div>
                     </div>
                 </li>
-                <li>
-                    <div class="info"><a href="http://book.sbkk8.com/gudai/sidawenxuemingzhu/xiyouji/" target="_blank" rel="noreferrer noopener" class="book-container">
-                            <div class="book" title="西游记">
-                                <img src="https://cdn.jsdelivr.net/gh/casteller/berrychenpic/20211112008.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/casteller/berrychenpic/20211112008.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="西游记"></div>
+                 <li>
+                    <div class="info">
+                        <a href="" target="_blank" rel="noreferrer noopener" class="book-container">
+                            <div class="book" title="围城">
+                                <img src="https://cdn.jsdelivr.net/gh/Kerisu/image@master/书/围城.webp" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Kerisu/image@master/书/围城.webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="富爸爸，穷爸爸"">
+                            </div>
                         </a>
                         <div class="info-card">
                             <div class="hidden-content">
-                                <p class="text">《西游记》是中国古代魔幻小说中的巅峰之作，讲述了唐僧师徒四人一路降妖伏魔、历经艰险到西天求取真经的故事。书中借助惊险的故事充分展现了作者丰富的知识、惊人的想象力和高超的写作技巧。
-                                </p>
+                                <p class="text">《围城》是钱钟书仅有的一部长篇小说，堪称中国现当代长篇小说的经典。小说塑造了抗战开初一类知识分子的群像，生动反映了在国家特定时期，特殊人群的行为操守、以及困惑。从另一个角度记述了当时的情景、氛围。虽然有具体的历史背景，但这部小说揭示的只是人群的弱点，在今天依然能够引起人们的共鸣。第1版于1947年由上海晨光出版公司出版。《围城》是中国现代文学史上一部风格独特的讽刺小说。被誉为“新儒林外史”。</p>
                             </div>
-                            <h3>《西游记》</h3>
-                            <p>作者：吴承恩</p>
-                            <p>出版时间：1994-04-01</p>
-                            <span>读书笔记：</span><a href="javascript:;" target="" rel="noopener noreferrer">暂无</a><p></p>
-                            <p><span>推荐指数：</span><span></span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="info"><a href="https://dushu.baidu.com/pc/detail?gid=4305592439" target="_blank" rel="noreferrer noopener" class="book-container">
-                            <div class="book" title="红楼梦">
-                                <img src="https://cdn.jsdelivr.net/gh/casteller/berrychenpic/20211112009.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/casteller/berrychenpic/20211112009.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="红楼梦"></div>
-                        </a>
-                        <div class="info-card">
-                            <div class="hidden-content">
-                                <p class="text">《红楼梦》是一部现实主义和浪漫主义高度结合的伟大著作，也是一个时代文学艺术的顶峰。全书通过对“贾、史、王、薛”四大家族从繁荣到衰败的描写，真实地展现了当时的社会生活及风俗人情，堪称封建末世的百科全书。
-                                </p>
-                            </div>
-                            <h3>《 红楼梦 》</h3>
-                            <p>作者：曹雪芹</p>
-                            <p>出版时间：1996-12-01</p>
-                            <span>读书笔记：</span><a href="javascript:;" target="" rel="noopener noreferrer"> 暂无 </a><p></p>
-                            <p><span>推荐指数：</span><span></span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+                            <h3>《围城》</h3>
+                            <p>作者：钱锺书</p>
+                            <p>出版时间：2017-6</p>
+                                <span>读书笔记：</span>
+                                <a href="" target="_blank" rel="noopener noreferrer">  </a>
+                            <p>
+                                <span>推荐指数：</span>
+                                <span></span>
+                                <!-- 推荐指数，多少个星星就有以下多少个i标签 -->
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                                <i class="ic i-star"></i>
+                            </p>
                         </div>
                     </div>
                 </li>

@@ -1,5 +1,5 @@
 ---
-title: maven扫盲
+title: maven查漏补缺
 date: 2022-03-26
 tags: 
 - 扫盲

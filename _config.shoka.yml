@@ -14,7 +14,7 @@ menu:
   
   # 离奇bug
   # 微言: /shuoshuo/ || comments
-  书单: /books || books
+  书单: /books || list-alt
   友链: /friends/ || heart
   about: /about/ || user
   # links: /links/ || magic
