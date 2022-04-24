@@ -105,3 +105,12 @@ limit index,pageSize
 
 1. 在查询之前开启分页
 2. 在查询之后获取分页相关信息   
+
+
+
+# mp自带的sql语句日志
+```yml
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+```
