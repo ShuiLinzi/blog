@@ -132,6 +132,7 @@ valine:
       # 居然要用hash值，我人傻了
     friend:
       - 09a7ff9655c14dcf35c80d255c2ec152
+      - f70dd565082c736ce018e2c7a93d76da
         
       # - hash of friend@email.com
       # - hash of friend2@email.com
