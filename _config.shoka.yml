@@ -47,6 +47,7 @@ font:
   global:
     external: true
     family: Noto Serif SC
+    size: 0.9
 
 
   # Font settings for alternate title.
@@ -70,7 +71,7 @@ font:
   # Font settings for posts.
   posts:
     external: true
-    size: 1.1
+    size: 
 
   # Font settings for <code> and code blocks.
   codes:
