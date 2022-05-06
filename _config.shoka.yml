@@ -47,7 +47,7 @@ font:
   global:
     external: true
     family: Noto Serif SC
-    size: 0.9
+    size: 
 
 
   # Font settings for alternate title.
@@ -55,6 +55,7 @@ font:
     external: true
     family: Fredericka the Great
     size: 3.5
+    color: "#34495e"
 
   # Font settings for site title.
   title:
