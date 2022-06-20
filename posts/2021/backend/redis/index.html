@@ -1,0 +1,570 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="1Hab_KIvHH-eatUbPy7yo3aPEgWeumaimxEeMP9IX_A">
+
+
+<link rel="alternate" type="application/rss+xml" title="凛" href="https://shuilinzi.github.io/blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="凛" href="https://shuilinzi.github.io/blog/atom.xml" />
+<link rel="alternate" type="application/json" title="凛" href="https://shuilinzi.github.io/blog/feed.json" />
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Java" />
+
+
+<link rel="canonical" href="https://shuilinzi.github.io/blog/posts/2021/backend/redis/">
+
+
+
+  <title>
+redis缓存使用问题及解决办法 - Java - 学习笔记 |
+Lin's Blog = 凛</title>
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">redis缓存使用问题及解决办法
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-30 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-30T00:00:00+08:00">2021-09-30</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.8k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/blog/" rel="start">Lin's Blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicivghyooj20zk0m8dir.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclimtf7dj20zk0m8qav.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
+        </ul>
+      </div>
+    
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+
+    </header>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/blog/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="item" rel="index" title="分类于 学习笔记"><span itemprop="name">学习笔记</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/" itemprop="item" rel="index" title="分类于 Java"><span itemprop="name">Java</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://shuilinzi.github.io/blog/posts/2021/backend/redis/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/blog/images/avatar.jpg">
+    <meta itemprop="name" content="凛">
+    <meta itemprop="description" content=", 决定未来的不是过去，而是现在。">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="凛">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>[[toc]]</p>
+<h2 id="哪些数据适合放到缓存"><a class="anchor" href="#哪些数据适合放到缓存">#</a> 哪些数据适合放到缓存</h2>
+<ul>
+<li>即时性，数据一致性要求不高的</li>
+<li>访问量大且更新频率不高的 (读多，写少)<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E5%90%8E%E7%AB%AF/%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B.2mcj5cis3se0.png" alt="缓存流程" /></li>
+</ul>
+<h2 id="本地缓存"><a class="anchor" href="#本地缓存">#</a> 本地缓存</h2>
+<p>项目是单体应用，很方便，很快，但是如果是分布式集群环境下，一旦对数据进行修改，比如对一号机器修改，但是由于负载均衡到二号三号机器的数据无法修改，也就是说本地缓存会产生数据一致性的问题。解决办法，使用服务器击群使用一个公共的共同的缓存中间件，redis 能实现此功能<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E5%90%8E%E7%AB%AF/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98.3wivdp10sts.png" alt="分布式缓存" /></p>
+<h2 id="redis缓存"><a class="anchor" href="#redis缓存">#</a> redis 缓存</h2>
+<ul>
+<li>给缓存中放 json 字符串，json 跨语言，跨平台兼容，拿出来的时候也是字符串，这样可以保持格式的统一</li>
+</ul>
+<h2 id="内存问题"><a class="anchor" href="#内存问题">#</a> 内存问题</h2>
+<h3 id="堆外溢出异常"><a class="anchor" href="#堆外溢出异常">#</a> 堆外溢出异常</h3>
+<ul>
+<li>springboot2.0 以后默认使用 lettcue 作为操作 redis 的客户端。它使用 netty 进行网络通信</li>
+<li>lettuce 的 bug 导致 netty 堆外内存溢出</li>
+</ul>
+<h3 id="解决方案"><a class="anchor" href="#解决方案">#</a> 解决方案</h3>
+<p>调大堆外内存并不能从根本上解决问题，迟早会出现这个问题<br/><br />
+redisTemplate:lettcue,jedis 都是操控 redis 的底层客户端。spring 再次封装成了 redisTemplate</p>
+<ul>
+<li>升级 lettuce 客户端</li>
+<li>切换使用 jedis 客户端 (我使用了此种方法，因为视频里面用的是这个，2333)</li>
+</ul>
+<h2 id="高并发缓存失效问题"><a class="anchor" href="#高并发缓存失效问题">#</a> 高并发缓存失效问题</h2>
+<h3 id="缓存穿透"><a class="anchor" href="#缓存穿透">#</a> 缓存穿透</h3>
+<p>缓存穿透指查询一个不存在的数据，由于缓存不命中，将去查询数据库，但是数据库也无此记录，我们没有将这次查询的 null 写入缓存，这将导致这个不存在的数据每次都要请求到存储层去查询，失去了缓存的意义<br><br><br />
+风险：利用不存在的数据进行攻击，数据库瞬间压力增大，最终导致崩溃<br><br><br />
+解决：将 null 结果缓存，并加入短暂的过期时间</p>
+<h3 id="缓存雪崩"><a class="anchor" href="#缓存雪崩">#</a> 缓存雪崩</h3>
+<p>缓存雪崩是指我们设置缓存时 key 采用了相同的过期时间，导致缓存在某一个时刻同时失效，请求全部转发到数据库，数据库瞬时压力过重雪崩<br><br><br />
+解决：原有的失效时间基础上增加一个随机值，比如 1-5 分钟随机，这样每一个缓存的过期时间的<br />
+重复率就会降低，就很难引发集体失效的事件</p>
+<h3 id="缓存击穿"><a class="anchor" href="#缓存击穿">#</a> 缓存击穿</h3>
+<p>对于一些设置了过期时间的 key，如果这些 key 可能会在某些时间点被超高并发地访问，是一种非常热点的数据这个时候，需要考虑一个问题：如果这个 key 在大量请求同时进来前正好失效，那么所<br />
+有对这个 key 的数据查询都落到 db，我们称为缓存击穿。<br><br><br />
+解决：加锁<br><br><br />
+(个人感觉：上述问题不用缓存也会存在吧，比如没有缓存高并发直接访问数据库，不也会炸吗)</p>
+<h2 id="加锁"><a class="anchor" href="#加锁">#</a> 加锁</h2>
+<h3 id="单机模式加锁"><a class="anchor" href="#单机模式加锁">#</a> 单机模式加锁</h3>
+<p>单机模式加锁，使用 synchronized (this) 进行加锁</p>
+<h3 id="集群模式加锁"><a class="anchor" href="#集群模式加锁">#</a> 集群模式加锁</h3>
+<p>由于本地锁只能锁住当前进程，所以我们需要分布式锁</p>
+<ul>
+<li>问题 1: setnx 占好了位，业务代码异常或者程序在页面过程中宕机，没有执行删除锁的逻辑，就会造成死锁问题</li>
+<li>问题 2: 如果业务时间很长。锁自己过期了，我们直接删除，有可能把别人正在持有的锁给删除</li>
+<li>解决：加锁删锁都必须保证原子性，给锁名字加上一个 uuid 避免重复，使用 redis+lua 脚本完成原子性删除<br><br />
+关于续期问题，直接把缓存时间放长一点进行解决</li>
+</ul>
+<h2 id="整合redisson"><a class="anchor" href="#整合redisson">#</a> 整合 redisson</h2>
+<p>引入依赖，配置 redisson<br />
+ 以后现用现查吧..</p>
+<h2 id="使用spring-cache"><a class="anchor" href="#使用spring-cache">#</a> 使用 spring cache</h2>
+<h3 id="简介"><a class="anchor" href="#简介">#</a> 简介</h3>
+<p>Spring 从 3.1 开始定义了 org.springframework.cache.Cache<br />
+ 和 org.springframework.cache.CacheManager 接口来统一不同的缓存技术；<br />
+并支持使用 JCache（JSR-107）注解简化我们开发</p>
+<ul>
+<li>每次调用需要缓存功能的方法时，Spring 会检查检查指定参数的指定的目标方法是否已<br />
+经被调用过；如果有就直接从缓存中获取方法调用后的结果，如果没有就调用方法并缓<br />
+存结果后返回给用户。下次调用直接从缓存中获取</li>
+<li>使用 Spring 缓存抽象时我们需要关注以下两点
+<ul>
+<li>1、确定方法需要被缓存以及他们的缓存策略</li>
+<li>2、从缓存中读取之前缓存存储的数据</li>
+</ul>
+</li>
+</ul>
+<h3 id="整合spring-cache简化缓存开发"><a class="anchor" href="#整合spring-cache简化缓存开发">#</a> 整合 spring cache 简化缓存开发</h3>
+<ul>
+<li>引入依赖 spring-boot-stater-catch</li>
+</ul>
+<figure class="highlight xml"><figcaption data-lang="XML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-cache<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></pre></td></tr></table></figure><ul>
+<li>写配置
+<ul>
+<li>boot 自动配置好了缓存管理器 RediscacheManager</li>
+<li>手动配置 redis 作为缓存</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight xml"><figcaption data-lang="XML"></figcaption><table><tr><td data-num="1"></td><td><pre>spring.cache.type=redis</pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre>#spring.cache.cache-names=qq,毫秒为单位</pre></td></tr><tr><td data-num="4"></td><td><pre>spring.cache.redis.time-to-live=3600000</pre></td></tr><tr><td data-num="5"></td><td><pre></pre></td></tr><tr><td data-num="6"></td><td><pre>#如果指定了前缀就用我们指定的前缀，如果没有就默认使用缓存的名字作为前缀</pre></td></tr><tr><td data-num="7"></td><td><pre>#spring.cache.redis.key-prefix=CACHE_</pre></td></tr><tr><td data-num="8"></td><td><pre>spring.cache.redis.use-key-prefix=true</pre></td></tr><tr><td data-num="9"></td><td><pre></pre></td></tr><tr><td data-num="10"></td><td><pre>#是否缓存空值，防止缓存穿透</pre></td></tr><tr><td data-num="11"></td><td><pre>spring.cache.redis.cache-null-values=true</pre></td></tr></table></figure><ul>
+<li>使用缓存注解
+<ul>
+<li>@Cacheable  ：触发将数据保存到缓存的操作；</li>
+<li>@CacheEvict  : 触发将数据从缓存删除的操作；</li>
+<li>@CachePut ：不影响方法执行更新缓存；</li>
+<li>@Cacheing：组合以上多个操作；</li>
+<li>@CacheConfig：在类级别共享缓存的相同配置；<br />
+1）开启缓存功能 @EnableCaching<br />
+2）只需要使用注解就能完成缓存操作</li>
+</ul>
+</li>
+</ul>
+<h3 id="cacheable"><a class="anchor" href="#cacheable">#</a> @Cacheable</h3>
+<p>1. 每个需要缓存的数据我们都来指定要放到那个名字的缓存，缓存分区 (可以按照业务类型分)<br><br><br />
+2. 默认行为</p>
+<ul>
+<li>如果缓存中有，方法不调用</li>
+<li>key 默认自动生成</li>
+<li>缓存的 value 值，默认使用 jdk 序列化机制，然后会把序列化后的数据存到 redis 中</li>
+<li>默认 ttl (生存时间 time to live) 为 - 1 (永不过期)<br><br></li>
+</ul>
+<p>3. 自定义</p>
+<ul>
+<li>指定生成缓存使用的 key，key 属性指定，接受一个 SpEL 表达式 (SpEL（Spring Expression Language），即 Spring 表达式语言)</li>
+<li>指定缓存数据的存活时间，配置文件中修改 ttl</li>
+<li>将数据保存为 json 格式 (改变序列化机制)</li>
+</ul>
+<h3 id="spring-cache的不足"><a class="anchor" href="#spring-cache的不足">#</a> spring cache 的不足</h3>
+<p>1）、读模式</p>
+<p>缓存穿透：查询一个 null 数据。解决方案：缓存空数据，可通过 spring.cache.redis.cache-null-values=true<br />
+ 缓存击穿：大量并发进来同时查询一个正好过期的数据。解决方案：加锁？默认是无加锁的；<br />
+ 使用 sync = true 来解决击穿问题<br />
+缓存雪崩：大量的 key 同时过期。解决：加随机时间。<br><br />
+2）、写模式：（缓存与数据库一致）</p>
+<p>读写加锁。<br />
+引入 Canal，感知到 MySQL 的更新去更新 Redis<br />
+ 读多写多，直接去数据库查询就行<br><br />
+3）、总结：</p>
+<p>常规数据（读多写少，即时性，一致性要求不高的数据，完全可以使用 Spring-Cache）：</p>
+<p>写模式 (只要缓存的数据有过期时间就足够了)</p>
+<p>特殊数据：特殊设计</p>
+
+      <div class="tags">
+          <a href="/blog/tags/Java/" rel="tag"><i class="ic i-tag"></i> Java</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-06-21 00:49:53" itemprop="dateModified" datetime="2022-06-21T00:49:53+08:00">2022-06-21</time>
+  </span>
+  <span id="posts/2021/backend/redis/" class="item leancloud_visitors" data-flag-title="redis缓存使用问题及解决办法" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>凛 <i class="ic i-at"><em>@</em></i>凛
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://shuilinzi.github.io/blog/posts/2021/backend/redis/" title="redis缓存使用问题及解决办法">https://shuilinzi.github.io/blog/posts/2021/backend/redis/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/blog/posts/2021/backend/bootDeploy/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicm0fdw5cj20zk0m8hdt.jpg" title="部署boot项目到服务器的一些踩坑和总结">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 随笔</span>
+  <h3>部署boot项目到服务器的一些踩坑和总结</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/blog/posts/2021/essay/%E5%9B%BE%E5%BA%8A/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipet4bz0yj20zk0m8e81.jpg" title="图床的使用">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 工具</span>
+  <h3>图床的使用</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E9%80%82%E5%90%88%E6%94%BE%E5%88%B0%E7%BC%93%E5%AD%98"><span class="toc-number">1.</span> <span class="toc-text"> 哪些数据适合放到缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98"><span class="toc-number">2.</span> <span class="toc-text"> 本地缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis%E7%BC%93%E5%AD%98"><span class="toc-number">3.</span> <span class="toc-text"> redis 缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text"> 内存问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E5%A4%96%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8"><span class="toc-number">4.1.</span> <span class="toc-text"> 堆外溢出异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">4.2.</span> <span class="toc-text"> 解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text"> 高并发缓存失效问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="toc-number">5.1.</span> <span class="toc-text"> 缓存穿透</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="toc-number">5.2.</span> <span class="toc-text"> 缓存雪崩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="toc-number">5.3.</span> <span class="toc-text"> 缓存击穿</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E9%94%81"><span class="toc-number">6.</span> <span class="toc-text"> 加锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F%E5%8A%A0%E9%94%81"><span class="toc-number">6.1.</span> <span class="toc-text"> 单机模式加锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E5%8A%A0%E9%94%81"><span class="toc-number">6.2.</span> <span class="toc-text"> 集群模式加锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E5%90%88redisson"><span class="toc-number">7.</span> <span class="toc-text"> 整合 redisson</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8spring-cache"><span class="toc-number">8.</span> <span class="toc-text"> 使用 spring cache</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">8.1.</span> <span class="toc-text"> 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88spring-cache%E7%AE%80%E5%8C%96%E7%BC%93%E5%AD%98%E5%BC%80%E5%8F%91"><span class="toc-number">8.2.</span> <span class="toc-text"> 整合 spring cache 简化缓存开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cacheable"><span class="toc-number">8.3.</span> <span class="toc-text"> @Cacheable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring-cache%E7%9A%84%E4%B8%8D%E8%B6%B3"><span class="toc-number">8.4.</span> <span class="toc-text"> spring cache 的不足</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/blog/posts/2021/backend/ngnix%E5%92%8Cgateway%E6%90%AD%E9%85%8D%E4%BD%BF%E7%94%A8/" rel="bookmark" title="nginx和gateway配合使用">nginx和gateway配合使用</a></li><li class="active"><a href="/blog/posts/2021/backend/redis/" rel="bookmark" title="redis缓存使用问题及解决办法">redis缓存使用问题及解决办法</a></li><li><a href="/blog/posts/2021/backend/springboot/" rel="bookmark" title="重刷springboot(雷神) 学习笔记">重刷springboot(雷神) 学习笔记</a></li><li><a href="/blog/posts/2021/backend/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7/" rel="bookmark" title="Java基础知识扫盲">Java基础知识扫盲</a></li><li><a href="/blog/posts/2022/backend/linux/" rel="bookmark" title="linux学习笔记">linux学习笔记</a></li><li><a href="/blog/posts/2022/backend/maven%E6%89%AB%E7%9B%B2/" rel="bookmark" title="maven查漏补缺">maven查漏补缺</a></li><li><a href="/blog/posts/2022/backend/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B~Stream%E6%B5%81/" rel="bookmark" title="函数式编程~Stream流">函数式编程~Stream流</a></li><li><a href="/blog/posts/2022/backend/springsecurity/" rel="bookmark" title="SpringSecurity学习笔记">SpringSecurity学习笔记</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="凛"
+      data-src="/blog/images/avatar.jpg">
+  <p class="name" itemprop="name">凛</p>
+  <div class="description" itemprop="description">决定未来的不是过去，而是现在。</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/blog/archives/">
+        <span class="count">37</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/blog/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/blog/tags/">
+        <span class="count">17</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NodWlsaW56aQ==" title="https:&#x2F;&#x2F;github.com&#x2F;shuilinzi"><i class="ic i-github"></i></span>
+      <span class="exturl item bilibili" data-url="aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzUxODg4NzUw" title="https:&#x2F;&#x2F;space.bilibili.com&#x2F;351888750"><i class="ic i-bilibili"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOnNodWlsaW56aUBxcS5jb20=" title="mailto:shuilinzi@qq.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/blog/books" rel="section"><i class="ic i-list-alt"></i>书单</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/friends/" rel="section"><i class="ic i-heart"></i>友链</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/blog/posts/2021/backend/bootDeploy/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/blog/posts/2021/essay/%E5%9B%BE%E5%BA%8A/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">凛 @ Lin's Blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">127k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:55</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'posts/2021/backend/redis/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

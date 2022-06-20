@@ -1,0 +1,450 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="1Hab_KIvHH-eatUbPy7yo3aPEgWeumaimxEeMP9IX_A">
+
+
+<link rel="alternate" type="application/rss+xml" title="凛" href="https://shuilinzi.github.io/blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="凛" href="https://shuilinzi.github.io/blog/atom.xml" />
+<link rel="alternate" type="application/json" title="凛" href="https://shuilinzi.github.io/blog/feed.json" />
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/blog/css/app.css?v=0.2.5">
+
+  
+
+<link rel="canonical" href="https://shuilinzi.github.io/blog/posts/2022/backend/shiro%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+  <title>
+ |
+Lin's Blog = 凛</title>
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-06-21 00:49:53">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-06-21T00:49:53+08:00">2022-06-21</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>5.7k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>5 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/blog/" rel="start">Lin's Blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicljitigmj20zk0m87fp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Z5W6r2BSoiThHG1.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
+        </ul>
+      </div>
+    
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+
+    </header>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/blog/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://shuilinzi.github.io/blog/posts/2022/backend/shiro%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/blog/images/avatar.jpg">
+    <meta itemprop="name" content="凛">
+    <meta itemprop="description" content=", 决定未来的不是过去，而是现在。">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="凛">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="shiro学习笔记"><a class="anchor" href="#shiro学习笔记">#</a> shiro 学习笔记</h1>
+<h1 id="认证"><a class="anchor" href="#认证">#</a> 认证</h1>
+<h2 id="shiro中认证的关键对象"><a class="anchor" href="#shiro中认证的关键对象">#</a> shiro 中认证的关键对象</h2>
+<ul>
+<li>
+<p>Subject：主体<br />
+访问系统的用户，主体可以是用户、程序等，进行认证的都称为主体；</p>
+</li>
+<li>
+<p>Principal：身份信息<br />
+是主体（subject）进行身份认证的标识，标识必须具有唯一性，如用户名、手机号、邮箱地址等，一个主体可以有多个身份，但是必须有一个主身份（Primary Principal）。</p>
+</li>
+<li>
+<p>credential：凭证信息<br />
+是只有主体自己知道的安全信息，如密码、证书等。</p>
+</li>
+</ul>
+<h2 id="使用shiro"><a class="anchor" href="#使用shiro">#</a> 使用 shiro</h2>
+<h3 id="引入依赖"><a class="anchor" href="#引入依赖">#</a> 引入依赖</h3>
+<figure class="highlight xml"><figcaption data-lang="XML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.shiro<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>shiro-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="4"></td><td><pre>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.5.3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></pre></td></tr></table></figure><h3 id="自定义realm"><a class="anchor" href="#自定义realm">#</a> 自定义 Realm</h3>
+<blockquote>
+<p>认证：1. 最终执行用户名比较是 在 <code>SimpleAccountRealm</code>  类 的  <code>doGetAuthenticationInfo </code> 方法中完成用户名校验</p>
+<p>2. 最终密码校验是在  <code>AuthenticatingRealm</code>  类 的 <code> assertCredentialsMatch</code>  方法 中</p>
+<p>总结：</p>
+<p><code>AuthenticatingRealm</code>  认证 realm <code> doGetAuthenticationInfo</code></p>
+<p><code>AuthorizingRealm </code> 授权 realm  <code>doGetAuthorizationInfo</code></p>
+</blockquote>
+<p>重写 <code>AuthorizingRealm</code>  里面的授权和认证方法，实现自定义认证和授权</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>lut<span class="token punctuation">.</span>realm</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">AuthenticationException</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">AuthenticationInfo</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">AuthenticationToken</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">SimpleAuthenticationInfo</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authz<span class="token punctuation">.</span></span><span class="token class-name">AuthorizationInfo</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>realm<span class="token punctuation">.</span></span><span class="token class-name">AuthorizingRealm</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>subject<span class="token punctuation">.</span></span><span class="token class-name">PrincipalCollection</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token comment">/**</pre></td></tr><tr><td data-num="12"></td><td><pre> * 自定义 Realm</pre></td></tr><tr><td data-num="13"></td><td><pre> */</span></pre></td></tr><tr><td data-num="14"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CustomerRealm</span> <span class="token keyword">extends</span> <span class="token class-name">AuthorizingRealm</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>    <span class="token comment">// 授权</span></pre></td></tr><tr><td data-num="16"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="17"></td><td><pre>    <span class="token keyword">protected</span> <span class="token class-name">AuthorizationInfo</span> <span class="token function">doGetAuthorizationInfo</span><span class="token punctuation">(</span><span class="token class-name">PrincipalCollection</span> principals<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"=================="</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="21"></td><td><pre></pre></td></tr><tr><td data-num="22"></td><td><pre>    <span class="token comment">// 认证</span></pre></td></tr><tr><td data-num="23"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="24"></td><td><pre>    <span class="token keyword">protected</span> <span class="token class-name">AuthenticationInfo</span> <span class="token function">doGetAuthenticationInfo</span><span class="token punctuation">(</span><span class="token class-name">AuthenticationToken</span> token<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">AuthenticationException</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="25"></td><td><pre>        <span class="token comment">// 在 token 中获取 用户名</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token class-name">String</span> principal <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> token<span class="token punctuation">.</span><span class="token function">getPrincipal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="27"></td><td><pre>        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>principal<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="28"></td><td><pre></pre></td></tr><tr><td data-num="29"></td><td><pre>        <span class="token comment">// 实际开发中应当 根据身份信息使用 jdbc mybatis 查询相关数据库</span></pre></td></tr><tr><td data-num="30"></td><td><pre>        <span class="token comment">// 在这里只做简单的演示</span></pre></td></tr><tr><td data-num="31"></td><td><pre>        <span class="token comment">// 假设 username,password 是从数据库获得的信息</span></pre></td></tr><tr><td data-num="32"></td><td><pre>        <span class="token class-name">String</span> username<span class="token operator">=</span><span class="token string">"zhangsan"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="33"></td><td><pre>        <span class="token class-name">String</span> password<span class="token operator">=</span><span class="token string">"123456"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="34"></td><td><pre>        <span class="token keyword">if</span><span class="token punctuation">(</span>username<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>principal<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="35"></td><td><pre>            <span class="token comment">// 参数 1: 返回数据库中正确的用户名</span></pre></td></tr><tr><td data-num="36"></td><td><pre>            <span class="token comment">// 参数 2: 返回数据库中正确密码</span></pre></td></tr><tr><td data-num="37"></td><td><pre>            <span class="token comment">// 参数 3: 提供当前 realm 的名字 this.getName ();</span></pre></td></tr><tr><td data-num="38"></td><td><pre>            <span class="token class-name">SimpleAuthenticationInfo</span> simpleAuthenticationInfo <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SimpleAuthenticationInfo</span><span class="token punctuation">(</span>principal<span class="token punctuation">,</span>password<span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="39"></td><td><pre>            <span class="token keyword">return</span> simpleAuthenticationInfo<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="40"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="41"></td><td><pre>        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="42"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="43"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h3 id="简单的测试demo"><a class="anchor" href="#简单的测试demo">#</a> 简单的测试 demo</h3>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>lut<span class="token punctuation">.</span>test</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>lut<span class="token punctuation">.</span>realm<span class="token punctuation">.</span></span><span class="token class-name">CustomerRealm</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span></span><span class="token class-name">SecurityUtils</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">IncorrectCredentialsException</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">UnknownAccountException</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">UsernamePasswordToken</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>mgt<span class="token punctuation">.</span></span><span class="token class-name">DefaultSecurityManager</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>subject<span class="token punctuation">.</span></span><span class="token class-name">Subject</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token comment">/**</pre></td></tr><tr><td data-num="12"></td><td><pre> * 测试自定义的 Realm</pre></td></tr><tr><td data-num="13"></td><td><pre> */</span></pre></td></tr><tr><td data-num="14"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestAuthenticatorCusttomerRealm</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="15"></td><td><pre></pre></td></tr><tr><td data-num="16"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token comment">//1. 创建安全管理对象 securityManager</span></pre></td></tr><tr><td data-num="18"></td><td><pre>        <span class="token class-name">DefaultSecurityManager</span> defaultSecurityManager <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DefaultSecurityManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre></pre></td></tr><tr><td data-num="20"></td><td><pre>        <span class="token comment">//2. 给安全管理器设置 realm（设置为自定义 realm 获取认证数据）</span></pre></td></tr><tr><td data-num="21"></td><td><pre>        defaultSecurityManager<span class="token punctuation">.</span><span class="token function">setRealm</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">CustomerRealm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="22"></td><td><pre>        <span class="token comment">//IniRealm realm = new IniRealm("classpath:shiro.ini");</span></pre></td></tr><tr><td data-num="23"></td><td><pre></pre></td></tr><tr><td data-num="24"></td><td><pre>        <span class="token comment">//3. 给安装工具类中设置默认安全管理器</span></pre></td></tr><tr><td data-num="25"></td><td><pre>        <span class="token class-name">SecurityUtils</span><span class="token punctuation">.</span><span class="token function">setSecurityManager</span><span class="token punctuation">(</span>defaultSecurityManager<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="26"></td><td><pre></pre></td></tr><tr><td data-num="27"></td><td><pre>        <span class="token comment">//4. 获取主体对象 subject</span></pre></td></tr><tr><td data-num="28"></td><td><pre>        <span class="token class-name">Subject</span> subject <span class="token operator">=</span> <span class="token class-name">SecurityUtils</span><span class="token punctuation">.</span><span class="token function">getSubject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="29"></td><td><pre></pre></td></tr><tr><td data-num="30"></td><td><pre>        <span class="token comment">//5. 创建 token 令牌</span></pre></td></tr><tr><td data-num="31"></td><td><pre>        <span class="token class-name">UsernamePasswordToken</span> token <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UsernamePasswordToken</span><span class="token punctuation">(</span><span class="token string">"zhangsan"</span><span class="token punctuation">,</span> <span class="token string">"123"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="32"></td><td><pre>        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="33"></td><td><pre>            subject<span class="token punctuation">.</span><span class="token function">login</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 用户登录</span></pre></td></tr><tr><td data-num="34"></td><td><pre>            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"登录成功~~"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="35"></td><td><pre>        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">UnknownAccountException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="36"></td><td><pre>            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="37"></td><td><pre>            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"用户名错误!!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="38"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IncorrectCredentialsException</span> e<span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="39"></td><td><pre>            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="40"></td><td><pre>            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"密码错误!!!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="41"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="42"></td><td><pre></pre></td></tr><tr><td data-num="43"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="44"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h3 id="密码加密"><a class="anchor" href="#密码加密">#</a> 密码加密</h3>
+<ol>
+<li>自定义 md5+salt 的 realm</li>
+</ol>
+<p>自定义继承 <code>AuthorizingRealm</code>  类</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>lut<span class="token punctuation">.</span>realm</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">AuthenticationException</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">AuthenticationInfo</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">AuthenticationToken</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">SimpleAuthenticationInfo</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authz<span class="token punctuation">.</span></span><span class="token class-name">AuthorizationInfo</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authz<span class="token punctuation">.</span></span><span class="token class-name">SimpleAuthorizationInfo</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>realm<span class="token punctuation">.</span></span><span class="token class-name">AuthorizingRealm</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>subject<span class="token punctuation">.</span></span><span class="token class-name">PrincipalCollection</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">ByteSource</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre></pre></td></tr><tr><td data-num="13"></td><td><pre><span class="token comment">/**</pre></td></tr><tr><td data-num="14"></td><td><pre> * 使用自定义 realm 加入 md5 + salt +hash</pre></td></tr><tr><td data-num="15"></td><td><pre> */</span></pre></td></tr><tr><td data-num="16"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CustomerMd5Realm</span> <span class="token keyword">extends</span> <span class="token class-name">AuthorizingRealm</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="17"></td><td><pre></pre></td></tr><tr><td data-num="18"></td><td><pre>    <span class="token comment">// 授权</span></pre></td></tr><tr><td data-num="19"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="20"></td><td><pre>    <span class="token keyword">protected</span> <span class="token class-name">AuthorizationInfo</span> <span class="token function">doGetAuthorizationInfo</span><span class="token punctuation">(</span><span class="token class-name">PrincipalCollection</span> principals<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="21"></td><td><pre>        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="22"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="23"></td><td><pre></pre></td></tr><tr><td data-num="24"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="25"></td><td><pre>    <span class="token keyword">protected</span> <span class="token class-name">AuthenticationInfo</span> <span class="token function">doGetAuthenticationInfo</span><span class="token punctuation">(</span><span class="token class-name">AuthenticationToken</span> token<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">AuthenticationException</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token comment">// 获取 token 中的 用户名</span></pre></td></tr><tr><td data-num="27"></td><td><pre>        <span class="token class-name">String</span> principal <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> token<span class="token punctuation">.</span><span class="token function">getPrincipal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="28"></td><td><pre></pre></td></tr><tr><td data-num="29"></td><td><pre>        <span class="token comment">// 假设这是从数据库查询到的信息</span></pre></td></tr><tr><td data-num="30"></td><td><pre>        <span class="token class-name">String</span> username<span class="token operator">=</span><span class="token string">"zhangsan"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="31"></td><td><pre>        <span class="token class-name">String</span> password<span class="token operator">=</span><span class="token string">"7268f6d32ec8d6f4c305ae92395b00e8"</span><span class="token punctuation">;</span><span class="token comment">// 加密后</span></pre></td></tr><tr><td data-num="32"></td><td><pre></pre></td></tr><tr><td data-num="33"></td><td><pre>        <span class="token comment">// 根据用户名查询数据库</span></pre></td></tr><tr><td data-num="34"></td><td><pre>        <span class="token keyword">if</span> <span class="token punctuation">(</span>username<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>principal<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="35"></td><td><pre>            <span class="token comment">// 参数 1: 数据库用户名</span></pre></td></tr><tr><td data-num="36"></td><td><pre>            <span class="token comment">// 参数 2: 数据库 md5+salt 之后的密码</span></pre></td></tr><tr><td data-num="37"></td><td><pre>            <span class="token comment">// 参数 3: 注册时的随机盐</span></pre></td></tr><tr><td data-num="38"></td><td><pre>            <span class="token comment">// 参数 4:realm 的名字</span></pre></td></tr><tr><td data-num="39"></td><td><pre>            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">SimpleAuthenticationInfo</span><span class="token punctuation">(</span>principal<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="40"></td><td><pre>                    password<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="41"></td><td><pre>                    <span class="token class-name">ByteSource<span class="token punctuation">.</span>Util</span><span class="token punctuation">.</span><span class="token function">bytes</span><span class="token punctuation">(</span><span class="token string">"@#$*&amp;QU7O0!"</span><span class="token punctuation">)</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="42"></td><td><pre>                    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="43"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="44"></td><td><pre>        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="45"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="46"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>消费者：</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>lut<span class="token punctuation">.</span>test</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>lut<span class="token punctuation">.</span>realm<span class="token punctuation">.</span></span><span class="token class-name">CustomerMd5Realm</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span></span><span class="token class-name">SecurityUtils</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">IncorrectCredentialsException</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">UnknownAccountException</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span></span><span class="token class-name">UsernamePasswordToken</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>authc<span class="token punctuation">.</span>credential<span class="token punctuation">.</span></span><span class="token class-name">HashedCredentialsMatcher</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>mgt<span class="token punctuation">.</span></span><span class="token class-name">DefaultSecurityManager</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>shiro<span class="token punctuation">.</span>subject<span class="token punctuation">.</span></span><span class="token class-name">Subject</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre></pre></td></tr><tr><td data-num="12"></td><td><pre><span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">Arrays</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre></pre></td></tr><tr><td data-num="14"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestCustomerMd5RealmAuthenicator</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="15"></td><td><pre></pre></td></tr><tr><td data-num="16"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="17"></td><td><pre></pre></td></tr><tr><td data-num="18"></td><td><pre>        <span class="token comment">//1. 创建安全管理器</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token class-name">DefaultSecurityManager</span> defaultSecurityManager <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DefaultSecurityManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre></pre></td></tr><tr><td data-num="21"></td><td><pre>        <span class="token comment">//2. 注入 realm</span></pre></td></tr><tr><td data-num="22"></td><td><pre>        <span class="token class-name">CustomerMd5Realm</span> realm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CustomerMd5Realm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="23"></td><td><pre></pre></td></tr><tr><td data-num="24"></td><td><pre>        <span class="token comment">//3. 设置 realm 使用 hash 凭证匹配器</span></pre></td></tr><tr><td data-num="25"></td><td><pre>        <span class="token class-name">HashedCredentialsMatcher</span> credentialsMatcher <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashedCredentialsMatcher</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token comment">// 声明：使用的算法</span></pre></td></tr><tr><td data-num="27"></td><td><pre>        credentialsMatcher<span class="token punctuation">.</span><span class="token function">setHashAlgorithmName</span><span class="token punctuation">(</span><span class="token string">"md5"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="28"></td><td><pre>        <span class="token comment">// 声明：散列次数</span></pre></td></tr><tr><td data-num="29"></td><td><pre>        credentialsMatcher<span class="token punctuation">.</span><span class="token function">setHashIterations</span><span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="30"></td><td><pre>        realm<span class="token punctuation">.</span><span class="token function">setCredentialsMatcher</span><span class="token punctuation">(</span>credentialsMatcher<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="31"></td><td><pre>        defaultSecurityManager<span class="token punctuation">.</span><span class="token function">setRealm</span><span class="token punctuation">(</span>realm<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="32"></td><td><pre></pre></td></tr><tr><td data-num="33"></td><td><pre>        <span class="token comment">//4. 将安全管理器注入安全工具</span></pre></td></tr><tr><td data-num="34"></td><td><pre>        <span class="token class-name">SecurityUtils</span><span class="token punctuation">.</span><span class="token function">setSecurityManager</span><span class="token punctuation">(</span>defaultSecurityManager<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="35"></td><td><pre></pre></td></tr><tr><td data-num="36"></td><td><pre>        <span class="token comment">//5. 通过安全工具类获取 subject</span></pre></td></tr><tr><td data-num="37"></td><td><pre>        <span class="token class-name">Subject</span> subject <span class="token operator">=</span> <span class="token class-name">SecurityUtils</span><span class="token punctuation">.</span><span class="token function">getSubject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="38"></td><td><pre></pre></td></tr><tr><td data-num="39"></td><td><pre>        <span class="token comment">//6. 认证</span></pre></td></tr><tr><td data-num="40"></td><td><pre>        <span class="token class-name">UsernamePasswordToken</span> token <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UsernamePasswordToken</span><span class="token punctuation">(</span><span class="token string">"zhangsan"</span><span class="token punctuation">,</span> <span class="token string">"123"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="41"></td><td><pre></pre></td></tr><tr><td data-num="42"></td><td><pre>        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="43"></td><td><pre>            subject<span class="token punctuation">.</span><span class="token function">login</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="44"></td><td><pre>            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"登录成功"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="45"></td><td><pre>        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">UnknownAccountException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="46"></td><td><pre>            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="47"></td><td><pre>            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"用户名错误"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="48"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IncorrectCredentialsException</span> e<span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="49"></td><td><pre>            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="50"></td><td><pre>            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"密码错误"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="51"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="52"></td><td><pre></pre></td></tr><tr><td data-num="53"></td><td><pre></pre></td></tr><tr><td data-num="54"></td><td><pre></pre></td></tr><tr><td data-num="55"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="56"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span id="posts/2022/backend/shiro学习笔记/" class="item leancloud_visitors" data-flag-title="" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>凛 <i class="ic i-at"><em>@</em></i>凛
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://shuilinzi.github.io/blog/posts/2022/backend/shiro%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="">https://shuilinzi.github.io/blog/posts/2022/backend/shiro学习笔记/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/blog/posts/2022/backend/springsecurity/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevo9j1jj20zk0m8e81.jpg" title="SpringSecurity学习笔记">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Java</span>
+  <h3>SpringSecurity学习笔记</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#shiro%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text"> shiro 学习笔记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A4%E8%AF%81"><span class="toc-number">2.</span> <span class="toc-text"> 认证</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#shiro%E4%B8%AD%E8%AE%A4%E8%AF%81%E7%9A%84%E5%85%B3%E9%94%AE%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.1.</span> <span class="toc-text"> shiro 中认证的关键对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8shiro"><span class="toc-number">2.2.</span> <span class="toc-text"> 使用 shiro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89realm"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 自定义 Realm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E6%B5%8B%E8%AF%95demo"><span class="toc-number">2.2.3.</span> <span class="toc-text"> 简单的测试 demo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E5%8A%A0%E5%AF%86"><span class="toc-number">2.2.4.</span> <span class="toc-text"> 密码加密</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="凛"
+      data-src="/blog/images/avatar.jpg">
+  <p class="name" itemprop="name">凛</p>
+  <div class="description" itemprop="description">决定未来的不是过去，而是现在。</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/blog/archives/">
+        <span class="count">37</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/blog/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/blog/tags/">
+        <span class="count">17</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NodWlsaW56aQ==" title="https:&#x2F;&#x2F;github.com&#x2F;shuilinzi"><i class="ic i-github"></i></span>
+      <span class="exturl item bilibili" data-url="aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzUxODg4NzUw" title="https:&#x2F;&#x2F;space.bilibili.com&#x2F;351888750"><i class="ic i-bilibili"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOnNodWlsaW56aUBxcS5jb20=" title="mailto:shuilinzi@qq.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/blog/books" rel="section"><i class="ic i-list-alt"></i>书单</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/friends/" rel="section"><i class="ic i-heart"></i>友链</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">凛 @ Lin's Blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">127k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:55</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'posts/2022/backend/shiro学习笔记/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

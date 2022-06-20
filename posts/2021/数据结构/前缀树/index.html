@@ -1,0 +1,492 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="1Hab_KIvHH-eatUbPy7yo3aPEgWeumaimxEeMP9IX_A">
+
+
+<link rel="alternate" type="application/rss+xml" title="凛" href="https://shuilinzi.github.io/blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="凛" href="https://shuilinzi.github.io/blog/atom.xml" />
+<link rel="alternate" type="application/json" title="凛" href="https://shuilinzi.github.io/blog/feed.json" />
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Java,数据结构和算法" />
+
+
+<link rel="canonical" href="https://shuilinzi.github.io/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%89%8D%E7%BC%80%E6%A0%91/">
+
+
+
+  <title>
+前缀树 - 算法 |
+Lin's Blog = 凛</title>
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">前缀树
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-11-16 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-11-16T00:00:00+08:00">2021-11-16</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/blog/" rel="start">Lin's Blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclj61ylzj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclx6phq6j20zk0m8e36.jpg"></li>
+        </ul>
+      </div>
+    
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+
+    </header>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/blog/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/blog/categories/%E7%AE%97%E6%B3%95/" itemprop="item" rel="index" title="分类于 算法"><span itemprop="name">算法</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://shuilinzi.github.io/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%89%8D%E7%BC%80%E6%A0%91/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/blog/images/avatar.jpg">
+    <meta itemprop="name" content="凛">
+    <meta itemprop="description" content=", 决定未来的不是过去，而是现在。">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="凛">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="简介"><a class="anchor" href="#简介">#</a> 简介</h2>
+<p>我们想一下用百度搜索时候，打个 “一语”，搜索栏中会给出 “一语道破”，“一语成谶 (四声的 chen)” 等推荐文本，这种叫模糊匹配，也就是给出一个模糊的 query，希望给出一个相关推荐列表，很明显，hashmap 并不容易做到模糊匹配，而 Trie 可以实现基于前缀的模糊搜索。</p>
+<span id="more"></span>
+<blockquote>
+<p>注意这里的模糊搜索也仅仅是基于前缀的。比如还是上面的例子，搜索 “道破” 就不会匹配到 “一语道破”，而只能匹配 “道破 xx”</p>
+</blockquote>
+<h2 id="基本概念"><a class="anchor" href="#基本概念">#</a> 基本概念</h2>
+<p>假设一个场景：给你若干单词 words 和一系列关键词 keywords，让你判断 keywords 是否在 words 中存在，或者判断 keywords 中的单词是否有 words 中的单词的前缀。比 pre 就是 pres 的前缀<strong>之一</strong>。<br><br><br />
+朴素的想法是遍历 keywords，对于 keywords 中的每一项都遍历 words 列表判断二者是否相等，或者是否是其前缀。这种算法的时间复杂度是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>m</mi><mo>∗</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(m * n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，其中 m 为 words 的平均长度，n 为 keywords 的平均长度。那么是否有可能对其进行优化呢？答案就是本文要讲的前缀树。<br><br><br />
+我们可以将 words 存储到一个树上，这棵树叫做前缀树。 一个前缀树大概是这个样子：<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E5%89%8D%E7%BC%80%E6%A0%911.png" alt="前缀树1" /><br />
+ 如图每一个节点存储一个字符，然后外加一个控制信息表示是否是单词结尾，实际使用过程可能会有细微差别，不过变化不大。<br><br><br />
+为了搞明白前缀树是如何优化暴力算法的。我们需要了解一下前缀树的基本概念和操作。</p>
+<h3 id="节点"><a class="anchor" href="#节点">#</a> 节点</h3>
+<ul>
+<li>根结点无实际意义</li>
+<li>每一个节点<strong>数据域</strong>存储一个字符</li>
+<li>每个节点中的<strong>控制域</strong>可以自定义，如 isWord (是否是单词)，count (该前缀出现的次数) 等，需实际问题实际分析需要什么。<br />
+一个可能的前缀树节点结构：</li>
+</ul>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">TrieNode</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre>        <span class="token keyword">int</span> count<span class="token punctuation">;</span> <span class="token comment">// 表示以该处节点构成的串的个数</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        <span class="token keyword">int</span> preCount<span class="token punctuation">;</span> <span class="token comment">// 表示以该处节点构成的前缀的字串的个数</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        <span class="token class-name">TrieNode</span><span class="token punctuation">[</span><span class="token punctuation">]</span> children<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token class-name">TrieNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre></pre></td></tr><tr><td data-num="9"></td><td><pre>            children <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TrieNode</span><span class="token punctuation">[</span><span class="token number">26</span><span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>            count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>            preCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h3 id="trie-的插入"><a class="anchor" href="#trie-的插入">#</a> Trie 的插入</h3>
+<p>构建 Trie 的核心就是插入。而插入指的就是将单词（words）全部依次插入到前缀树中。假定给出几个单词 words [she,he,her,good,god] 构造出一个 Trie 如下图：<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E5%89%8D%E7%BC%80%E6%A0%912.png" alt="前缀树2" /></p>
+<p>也就是说从根结点出发到某一粉色节点所经过的字符组成的单词，在单词列表中出现过，当然我们也可以给树的每个节点加个 count 属性，代表根结点到该节点所构成的字符串前缀出现的次数<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E5%89%8D%E7%BC%80%E6%A0%913.png" alt="前缀树3" /></p>
+<p>可以看出树的构造非常简单：<strong>插入新单词的时候就从根结点出发一个字符一个字符插入，有对应的字符节点就更新对应的属性，没有就创建一个！</strong></p>
+<p><strong>Trie 插入的代码讲解，首先 root 是空节点，index 用来判断从哪条路开始，得到走哪条路之后，判断是否为空，为空就创建一个节点（相当于开辟了一条路），然后把节点指向更新到下一个节点，进行循环操作</strong></p>
+<h3 id="trie-的查询"><a class="anchor" href="#trie-的查询">#</a> Trie 的查询</h3>
+<p>查询更简单了，给定一个 Trie 和一个单词，和插入的过程类似，一个字符一个字符找</p>
+<ul>
+<li>若中途有个字符没有对应节点 →Trie 不含该单词</li>
+<li>若字符串遍历完了，都有对应节点，但最后一个字符对应的节点并不是粉色的，也就不是一个单词 →Trie 不含该单词</li>
+</ul>
+<h2 id="trie-模版"><a class="anchor" href="#trie-模版">#</a> Trie 模版</h2>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">// 前缀树的模板代码</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TrieNode</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">int</span> pass<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">int</span> end<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">TrieNode</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nexts<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre></pre></td></tr><tr><td data-num="7"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">TrieNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>        pass <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>        end <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>        nexts <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TrieNode</span><span class="token punctuation">[</span><span class="token number">26</span><span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="12"></td><td><pre></pre></td></tr><tr><td data-num="13"></td><td><pre></pre></td></tr><tr><td data-num="14"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Trie</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>        <span class="token keyword">private</span> <span class="token class-name">TrieNode</span> root<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token keyword">public</span> <span class="token class-name">Trie</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>            root <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TrieNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="20"></td><td><pre></pre></td></tr><tr><td data-num="21"></td><td><pre>        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span><span class="token class-name">String</span> word<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="22"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span>word <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="23"></td><td><pre>                <span class="token keyword">return</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="24"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="25"></td><td><pre>            <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars <span class="token operator">=</span> word<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="26"></td><td><pre>            <span class="token class-name">TrieNode</span> node <span class="token operator">=</span> root<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="27"></td><td><pre>            <span class="token keyword">int</span> index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="28"></td><td><pre>            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> chars<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="29"></td><td><pre>                index <span class="token operator">=</span> chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token char">'a'</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="30"></td><td><pre>                <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>nexts<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="31"></td><td><pre>                    node<span class="token punctuation">.</span>nexts<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TrieNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="32"></td><td><pre>                <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="33"></td><td><pre>                node <span class="token operator">=</span> node<span class="token punctuation">.</span>nexts<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="34"></td><td><pre>                node<span class="token punctuation">.</span>pass<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="35"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="36"></td><td><pre>            node<span class="token punctuation">.</span>end<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="37"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="38"></td><td><pre></pre></td></tr><tr><td data-num="39"></td><td><pre>        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token class-name">String</span> word<span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="40"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span>word<span class="token operator">==</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="41"></td><td><pre>                <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="42"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="43"></td><td><pre>            <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars <span class="token operator">=</span> word<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="44"></td><td><pre>            <span class="token class-name">TrieNode</span> node <span class="token operator">=</span> root<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="45"></td><td><pre>            <span class="token keyword">int</span> index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="46"></td><td><pre>            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> chars<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="47"></td><td><pre>                index <span class="token operator">=</span> chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">-</span><span class="token char">'a'</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="48"></td><td><pre>                <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>nexts<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="49"></td><td><pre>                    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="50"></td><td><pre>                <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="51"></td><td><pre>                node <span class="token operator">=</span> node<span class="token punctuation">.</span>nexts<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="52"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="53"></td><td><pre>            <span class="token keyword">return</span> node<span class="token punctuation">.</span>end<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="54"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="55"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="56"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h3 id="复杂度分析"><a class="anchor" href="#复杂度分析">#</a> 复杂度分析</h3>
+<ul>
+<li>插入和查询的时间复杂度自然是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo stretchy="false">(</mo><mi>k</mi><mi>e</mi><mi>y</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(len(key))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>，key 是待插入 (查找) 的字串，即时间复杂度为查询的结果的深度</li>
+<li>建树的最坏空间复杂度是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>m</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(m^{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, m 是字符集中字符个数，n 是字符串长度，以 26 个英语字母为例，建树三层，为 26 的三次方，因为每个节点最大都能分出 26 条路</li>
+</ul>
+<h2 id="前缀树的特点"><a class="anchor" href="#前缀树的特点">#</a> 前缀树的特点</h2>
+<p>简单来说， 前缀树就是一个树。前缀树一般是将一系列的单词记录到树上， 如果这些单词没有公共前缀，则和直接用数组存没有任何区别。而如果有公共前缀， 则公共前缀仅会被存储一次。可以想象，如果一系列单词的公共前缀很多， 则会有效减少空间消耗。</p>
+<p>而前缀树的意义实际上是空间换时间，这和哈希表，动态规划等的初衷是一样的。</p>
+<p>其原理也很简单，正如我前面所言，其公共前缀仅会被存储一次，因此如果我想在一堆单词中找某个单词或者某个前缀是否出现，我无需进行完整遍历，而是遍历前缀树即可。本质上，使用前缀树和不使用前缀树减少的时间就是公共前缀的数目。也就是说，一堆单词没有公共前缀，使用前缀树没有任何意义。</p>
+<h2 id="总结"><a class="anchor" href="#总结">#</a> 总结</h2>
+<p>前缀树的核心思想是用空间换时间，利用字符串的公共前缀来降低查询的时间开销。因此如果题目中公共前缀比较多，就可以考虑使用前缀树来优化。</p>
+<p>前缀树的基本操作就是插入和查询，其中查询可以完整查询，也可以前缀查询，其中基于前缀查询才是前缀树的灵魂，也是其名字的来源。</p>
+<blockquote>
+<p>基于前缀树的题目变化通常不大， 使用模板就可以解决。如何知道该使用前缀树优化是一个难点，不过大家只要牢牢记一点即可，那就是算法的复杂度瓶颈在字符串查找，并且字符串有很多公共前缀，就可以用前缀树优化。</p>
+</blockquote>
+
+      <div class="tags">
+          <a href="/blog/tags/Java/" rel="tag"><i class="ic i-tag"></i> Java</a>
+          <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 数据结构和算法</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-06-21 00:49:53" itemprop="dateModified" datetime="2022-06-21T00:49:53+08:00">2022-06-21</time>
+  </span>
+  <span id="posts/2021/数据结构/前缀树/" class="item leancloud_visitors" data-flag-title="前缀树" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>凛 <i class="ic i-at"><em>@</em></i>凛
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://shuilinzi.github.io/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%89%8D%E7%BC%80%E6%A0%91/" title="前缀树">https://shuilinzi.github.io/blog/posts/2021/数据结构/前缀树/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%B6%E6%9F%A5%E9%9B%86/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;ShuiLinzi&#x2F;blog-image@master&#x2F;动漫&#x2F;image.3g66lwos5iu0.webp" title="并查集">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 算法</span>
+  <h3>并查集</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeyhsblkj20zk0m81kx.jpg" title="动态规划">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 算法</span>
+  <h3>动态规划</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text"> 基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9"><span class="toc-number">2.1.</span> <span class="toc-text"> 节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#trie-%E7%9A%84%E6%8F%92%E5%85%A5"><span class="toc-number">2.2.</span> <span class="toc-text"> Trie 的插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#trie-%E7%9A%84%E6%9F%A5%E8%AF%A2"><span class="toc-number">2.3.</span> <span class="toc-text"> Trie 的查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#trie-%E6%A8%A1%E7%89%88"><span class="toc-number">3.</span> <span class="toc-text"> Trie 模版</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">3.1.</span> <span class="toc-text"> 复杂度分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BC%80%E6%A0%91%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text"> 前缀树的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text"> 总结</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="bookmark" title="并查集">并查集</a></li><li class="active"><a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%89%8D%E7%BC%80%E6%A0%91/" rel="bookmark" title="前缀树">前缀树</a></li><li><a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="bookmark" title="动态规划">动态规划</a></li><li><a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="bookmark" title="滑动窗口">滑动窗口</a></li><li><a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="bookmark" title="快速排序">快速排序</a></li><li><a href="/blog/posts/2022/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F/" rel="bookmark" title="排序算法">排序算法</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="凛"
+      data-src="/blog/images/avatar.jpg">
+  <p class="name" itemprop="name">凛</p>
+  <div class="description" itemprop="description">决定未来的不是过去，而是现在。</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/blog/archives/">
+        <span class="count">37</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/blog/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/blog/tags/">
+        <span class="count">17</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NodWlsaW56aQ==" title="https:&#x2F;&#x2F;github.com&#x2F;shuilinzi"><i class="ic i-github"></i></span>
+      <span class="exturl item bilibili" data-url="aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzUxODg4NzUw" title="https:&#x2F;&#x2F;space.bilibili.com&#x2F;351888750"><i class="ic i-bilibili"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOnNodWlsaW56aUBxcS5jb20=" title="mailto:shuilinzi@qq.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/blog/books" rel="section"><i class="ic i-list-alt"></i>书单</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/friends/" rel="section"><i class="ic i-heart"></i>友链</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">凛 @ Lin's Blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">127k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:55</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'posts/2021/数据结构/前缀树/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

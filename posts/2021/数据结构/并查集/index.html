@@ -1,0 +1,508 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="1Hab_KIvHH-eatUbPy7yo3aPEgWeumaimxEeMP9IX_A">
+
+
+<link rel="alternate" type="application/rss+xml" title="凛" href="https://shuilinzi.github.io/blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="凛" href="https://shuilinzi.github.io/blog/atom.xml" />
+<link rel="alternate" type="application/json" title="凛" href="https://shuilinzi.github.io/blog/feed.json" />
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Java,数据结构和算法" />
+
+
+<link rel="canonical" href="https://shuilinzi.github.io/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+
+
+
+  <title>
+并查集 - 算法 |
+Lin's Blog = 凛</title>
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">并查集
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-11-14 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-11-14T00:00:00+08:00">2021-11-14</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>4.1k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/blog/" rel="start">Lin's Blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclimtf7dj20zk0m8qav.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciszlczyj20zk0m816d.jpg"></li>
+        </ul>
+      </div>
+    
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+
+    </header>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/blog/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/blog/categories/%E7%AE%97%E6%B3%95/" itemprop="item" rel="index" title="分类于 算法"><span itemprop="name">算法</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://shuilinzi.github.io/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/blog/images/avatar.jpg">
+    <meta itemprop="name" content="凛">
+    <meta itemprop="description" content=", 决定未来的不是过去，而是现在。">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="凛">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="概述"><a class="anchor" href="#概述">#</a> 概述</h2>
+<p>并查集使用的是一种<strong>树型</strong>的数据结构，用于处理一些不交集（Disjoint Sets）的合并及查询问题。<br><br><br />
+比如让你求两个人是否间接认识，两个地点之间是否有至少一条路径。上面的例子其实都可以抽象为联通性问题。即如果两个点联通，那么这两个点就有至少一条路径能够将其连接起来。值得注意的是，并查集只能回答 “联通与否”，而不能回答诸如 “具体的联通路径是什么”。如果要回答 “具体的联通路径是什么” 这个问题，则需要借助其他算法，比如广度优先遍历。</p>
+<span id="more"></span>
+<h2 id="形象解释"><a class="anchor" href="#形象解释">#</a> 形象解释</h2>
+<p>比如有两个司令。 司令下有若干军长，军长下有若干师长。。</p>
+<h3 id="判断两个节点是否联通"><a class="anchor" href="#判断两个节点是否联通">#</a> 判断两个节点是否联通</h3>
+<p>我们如何判断某两个师长是否归同一个司令管呢（连通性）？<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E5%86%9B%E9%95%BF%E8%BF%9E%E9%80%9A%E7%A4%BA%E6%84%8F.png" alt="军长连通示意" /></p>
+<p>很简单，我们顺着师长，往上找，找到司令。 如果两个师长找到的是同一个司令，那么两个人就归同一个司令管。（假设这两人级别比司令低）<br />
+如果我让你判断两个士兵是否归同一个师长管，也可以向上搜索到师长，如果搜索到的两个师长是同一个，那就说明这两个士兵归同一师长管。（假设这两人级别比师长低）<br />
+代码上我们可以用 parent [x] = y 表示 x 的 parent 是 y，通过不断沿着搜索 parent 搜索找到 root，然后比较 root 是否相同即可得出结论。 这里的 root 实际上就是上文提到的<strong>集合代表</strong>。</p>
+<blockquote>
+<p>之所以使用 parent 存储每个节点的父节点，而不是使用 children 存储每个节点的子节点是因为 “我们需要找到某个元素的代表（也就是根）”</p>
+</blockquote>
+<p>这个不断往上找的操作，我们一般称为 find，使用 ta 我们可以很容易地求出两个节点是否连通。</p>
+<h3 id="合并两个连通区域"><a class="anchor" href="#合并两个连通区域">#</a> 合并两个连通区域</h3>
+<p>如图有两个司令：<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E5%90%88%E5%B9%B6%E5%8F%B8%E4%BB%A4%E8%BF%9E%E9%80%9A%E5%9B%BE.png" alt="合并司令连通图" /><br />
+我们将其合并为一个联通域，最简单的方式就是直接将其中一个司令指向另外一个即可：<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E5%90%88%E5%B9%B6%E5%8F%B8%E4%BB%A4%E8%BF%9E%E9%80%9A%E5%9B%BE2.png" alt="合并司令连通图2" /><br />
+ 以上就是三个核心 API  <code>find</code> ， <code>connnected</code>  和  <code>union</code> ， 的形象化解释，下面我们来看下代码实现。</p>
+<h2 id="核心api"><a class="anchor" href="#核心api">#</a> 核心 API</h2>
+<p>并查集（Union-find Algorithm）定义了两个用于此数据结构的操作：</p>
+<ul>
+<li>Find：确定元素属于哪一个子集。它可以被用来确定两个元素是否属于同一子集。</li>
+<li>Union：将两个子集合并成同一个集合。</li>
+</ul>
+<p>首先我们初始化每一个点都是一个连通域，类似下图：<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E5%A7%8B%E5%8C%96%E5%BA%8F%E5%88%97.png" alt="并查集初始化序列" /><br />
+为了更加精确的定义这些方法，需要定义如何表示集合。一种常用的策略是为每个集合选定一个固定的元素，称为代表，以表示整个集合。接着，Find (x) 返回 x 所属集合的代表，而 Union 使用两个集合的代表作为参数进行合并。初始时，每个人的代表都是自己本身</p>
+<blockquote>
+<p>这里的代表就是上面的 “司令”。</p>
+</blockquote>
+<p>比如我们的 parent 长这个样子：</p>
+<figure class="highlight json"><figcaption data-lang="JSON"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre> <span class="token property">"0"</span><span class="token operator">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="3"></td><td><pre> <span class="token property">"1"</span><span class="token operator">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="4"></td><td><pre> <span class="token property">"2"</span><span class="token operator">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="5"></td><td><pre> <span class="token property">"4"</span><span class="token operator">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="6"></td><td><pre> <span class="token property">"3"</span><span class="token operator">:</span> <span class="token string">"3"</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h3 id="find"><a class="anchor" href="#find">#</a> find</h3>
+<p>假如我让你在上面的 parent 中找 0 的代表如何找？</p>
+<p>首先，树的根在 parent 中满足 “parent [x] == x”。因此我们可以先找到 0 的父亲 parent [0] 也就是 1，接下来我们看 1 的父亲 parent [1] 发现是 3，因此它不是根，我们继续找 3 的父亲，发现是 3 本身。也就是说 3 就是我们要找的代表，我们返回 3 即可。</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">//find 的过程，递归实现，并把沿途的所有结点都指向父节点</span></pre></td></tr><tr><td data-num="2"></td><td><pre>        <span class="token keyword">private</span> <span class="token class-name">Data</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token class-name">Data</span> node<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>            <span class="token class-name">Data</span> father <span class="token operator">=</span> fatherMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span>father <span class="token operator">!=</span> node<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>                father <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>father<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>            fatherMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> father<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>            <span class="token keyword">return</span> father<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>这里我在递归实现的 find 过程进行了路径的压缩，每次往上查找之后都会将树的高度降低到 2。</p>
+<p>这有什么用呢？我们知道每次 find 都会从当前节点往上不断搜索，直到到达根节点，因此 find 的时间复杂度大致相等于节点的深度，树的高度如果不加控制则可能为节点数，因此 find 的时间复杂度可能会退化到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。而如果进行路径压缩，那么树的平均高度不会超过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">logn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span></span></span></span>，如果使用了路径压缩和下面要讲的按秩合并那么时间复杂度可以趋近 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>，具体证明略。不过给大家画了一个图来辅助大家理解。</p>
+<blockquote>
+<p>注意是趋近 O (1)，准确来说是阿克曼函数的某个反函数。</p>
+</blockquote>
+<p><img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E8%B7%AF%E5%BE%84%E5%8E%8B%E7%BC%A9.gif" alt="路径压缩" /></p>
+<p>极限情况下，每一个路径都会被压缩，这种情况下继续查找的时间复杂度就是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>。<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E8%B7%AF%E5%BE%84%E5%8E%8B%E7%BC%A91.png" alt="路径压缩1" /></p>
+<h3 id="connected"><a class="anchor" href="#connected">#</a> connected</h3>
+<p>判断两个节点的祖先是否相同，即是否连通</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">// 判断是否是同一个代表节点</span></pre></td></tr><tr><td data-num="2"></td><td><pre>        <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isSameSet</span><span class="token punctuation">(</span><span class="token class-name">Data</span> a<span class="token punctuation">,</span> <span class="token class-name">Data</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>            <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">find</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h3 id="union"><a class="anchor" href="#union">#</a> union</h3>
+<p>将其中一个节点挂到另外一个节点的祖先上，这样两者祖先就一样了。也就是说，两个节点联通了。<br />
+对于如下的一个图：<br />
+<img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E7%A4%BA%E4%BE%8B.50icf4fvsrc0.png" alt="示例" /><br />
+如果我们将 0 和 7 进行一次合并。即  <code>union(0, 7)</code>  ，则会发生如下过程。</p>
+<ul>
+<li>找到 0 的根节点 3</li>
+<li>找到 7 的根节点 6</li>
+<li>将 6 指向 3。（为了使得合并之后的树尽可能平衡，一般选择将小树挂载到大树上面，下面的代码模板会体现这一点。3 的秩比 6 的秩大，这样更利于树的平衡，避免出现极端的情况）</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E7%AE%97%E6%B3%95/%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E8%8A%82%E7%82%B9.gif" alt="按秩合并节点" /><br />
+上面讲的小树挂大树就是所谓的<strong>按秩合并</strong>。</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">// 联合方法，把小节点接到大节点下面</span></pre></td></tr><tr><td data-num="2"></td><td><pre>        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token class-name">Data</span> a<span class="token punctuation">,</span> <span class="token class-name">Data</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> b <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>                <span class="token keyword">return</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>            <span class="token class-name">Data</span> aHead <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>            <span class="token class-name">Data</span> bHead <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span>aHead <span class="token operator">!=</span> bHead<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>                <span class="token class-name">Integer</span> aSetSize <span class="token operator">=</span> sizeMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>aHead<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>                <span class="token class-name">Integer</span> bSetSize <span class="token operator">=</span> sizeMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>bHead<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>                <span class="token keyword">if</span> <span class="token punctuation">(</span>aSetSize <span class="token operator">&lt;=</span> bSetSize<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>                    fatherMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>aHead<span class="token punctuation">,</span> bHead<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>                    sizeMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>bHead<span class="token punctuation">,</span> aSetSize <span class="token operator">+</span> bSetSize<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>                <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>                    fatherMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>bHead<span class="token punctuation">,</span> aHead<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>                    sizeMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>aHead<span class="token punctuation">,</span> aSetSize <span class="token operator">+</span> bSetSize<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>                <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="代码模板"><a class="anchor" href="#代码模板">#</a> 代码模板</h2>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Data</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>        <span class="token comment">// 数据类型，填啥都行，你需要什么就填什么样的类型</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="5"></td><td><pre></pre></td></tr><tr><td data-num="6"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">UnionFindSet</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token comment">//（key，value）表示，key 的父节点，是 value，即左边的是子，右边的是父</span></pre></td></tr><tr><td data-num="8"></td><td><pre>        <span class="token keyword">public</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Data</span><span class="token punctuation">,</span> <span class="token class-name">Data</span><span class="token punctuation">></span></span> fatherMap<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>        <span class="token keyword">public</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Data</span><span class="token punctuation">,</span> <span class="token class-name">Integer</span><span class="token punctuation">></span></span> sizeMap<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre>        <span class="token keyword">public</span> <span class="token class-name">UnionFindSet</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Data</span><span class="token punctuation">></span></span> nodes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>            fatherMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Data</span><span class="token punctuation">,</span> <span class="token class-name">Data</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>            sizeMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Data</span><span class="token punctuation">,</span> <span class="token class-name">Integer</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>            <span class="token function">makeSets</span><span class="token punctuation">(</span>nodes<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="16"></td><td><pre></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token comment">// 想要使用并查集，必须先给我初始化并查集</span></pre></td></tr><tr><td data-num="18"></td><td><pre>        <span class="token comment">// 初始化的时候每一个节点都是父节点，自己指向自己，且 sizeMap 为 1</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">makeSets</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Data</span><span class="token punctuation">></span></span> nodes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="20"></td><td><pre>            fatherMap<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="21"></td><td><pre>            sizeMap<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="22"></td><td><pre>            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Data</span> node <span class="token operator">:</span> nodes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="23"></td><td><pre>                fatherMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="24"></td><td><pre>                sizeMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="25"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="27"></td><td><pre></pre></td></tr><tr><td data-num="28"></td><td><pre>        <span class="token comment">//find 的过程，递归实现，并把沿途的所有结点都指向父节点</span></pre></td></tr><tr><td data-num="29"></td><td><pre>        <span class="token keyword">private</span> <span class="token class-name">Data</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token class-name">Data</span> node<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="30"></td><td><pre>            <span class="token class-name">Data</span> father <span class="token operator">=</span> fatherMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="31"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span>father <span class="token operator">!=</span> node<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="32"></td><td><pre>                father <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>father<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="33"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="34"></td><td><pre>            fatherMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> father<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="35"></td><td><pre>            <span class="token keyword">return</span> father<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="36"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="37"></td><td><pre></pre></td></tr><tr><td data-num="38"></td><td><pre>        <span class="token comment">// 判断是否是同一个代表节点</span></pre></td></tr><tr><td data-num="39"></td><td><pre>        <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isSameSet</span><span class="token punctuation">(</span><span class="token class-name">Data</span> a<span class="token punctuation">,</span> <span class="token class-name">Data</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="40"></td><td><pre>            <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">find</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="41"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="42"></td><td><pre></pre></td></tr><tr><td data-num="43"></td><td><pre>        <span class="token comment">// 联合方法，把小节点接到大节点下面</span></pre></td></tr><tr><td data-num="44"></td><td><pre>        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token class-name">Data</span> a<span class="token punctuation">,</span> <span class="token class-name">Data</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="45"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> b <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="46"></td><td><pre>                <span class="token keyword">return</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="47"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="48"></td><td><pre>            <span class="token class-name">Data</span> aHead <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="49"></td><td><pre>            <span class="token class-name">Data</span> bHead <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="50"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span>aHead <span class="token operator">!=</span> bHead<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="51"></td><td><pre>                <span class="token class-name">Integer</span> aSetSize <span class="token operator">=</span> sizeMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>aHead<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="52"></td><td><pre>                <span class="token class-name">Integer</span> bSetSize <span class="token operator">=</span> sizeMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>bHead<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="53"></td><td><pre>                <span class="token keyword">if</span> <span class="token punctuation">(</span>aSetSize <span class="token operator">&lt;=</span> bSetSize<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="54"></td><td><pre>                    fatherMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>aHead<span class="token punctuation">,</span> bHead<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="55"></td><td><pre>                    sizeMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>bHead<span class="token punctuation">,</span> aSetSize <span class="token operator">+</span> bSetSize<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="56"></td><td><pre>                <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="57"></td><td><pre>                    fatherMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>bHead<span class="token punctuation">,</span> aHead<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="58"></td><td><pre>                    sizeMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>aHead<span class="token punctuation">,</span> aSetSize <span class="token operator">+</span> bSetSize<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="59"></td><td><pre>                <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="60"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="61"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="62"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="63"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="复杂度分析"><a class="anchor" href="#复杂度分析">#</a> 复杂度分析</h2>
+<p>令 n 为图中点的个数。</p>
+<p>首先分析空间复杂度。空间上，由于我们需要存储 parent （带权并查集还有 weight） ，因此空间复杂度取决于于图中的点的个数， 空间复杂度不难得出为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。<br />
+并查集的时间消耗主要是 union 和 find 操作，路径压缩和按秩合并优化后的时间复杂度接近于 O (1)。更加严谨的表达是 O (log (m×Alpha (n)))，n 为合并的次数， m 为查找的次数，这里 Alpha 是 Ackerman 函数的某个反函数。但如果只有路径压缩或者只有按秩合并，两者时间复杂度为 O (logx) 和 O (logy)，x 和 y 分别为合并与查找的次数。</p>
+
+      <div class="tags">
+          <a href="/blog/tags/Java/" rel="tag"><i class="ic i-tag"></i> Java</a>
+          <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 数据结构和算法</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-06-21 00:49:53" itemprop="dateModified" datetime="2022-06-21T00:49:53+08:00">2022-06-21</time>
+  </span>
+  <span id="posts/2021/数据结构/并查集/" class="item leancloud_visitors" data-flag-title="并查集" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>凛 <i class="ic i-at"><em>@</em></i>凛
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://shuilinzi.github.io/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%B6%E6%9F%A5%E9%9B%86/" title="并查集">https://shuilinzi.github.io/blog/posts/2021/数据结构/并查集/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/blog/posts/2021/essay/10%E6%9C%88%E6%80%BB%E7%BB%93/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4lm9i7j20zk0m84qp.jpg" title="10月总结">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 随笔</span>
+  <h3>10月总结</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%89%8D%E7%BC%80%E6%A0%91/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitf0kl1j20zk0m87fe.jpg" title="前缀树">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 算法</span>
+  <h3>前缀树</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%A2%E8%B1%A1%E8%A7%A3%E9%87%8A"><span class="toc-number">2.</span> <span class="toc-text"> 形象解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9%E6%98%AF%E5%90%A6%E8%81%94%E9%80%9A"><span class="toc-number">2.1.</span> <span class="toc-text"> 判断两个节点是否联通</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E8%BF%9E%E9%80%9A%E5%8C%BA%E5%9F%9F"><span class="toc-number">2.2.</span> <span class="toc-text"> 合并两个连通区域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83api"><span class="toc-number">3.</span> <span class="toc-text"> 核心 API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#find"><span class="toc-number">3.1.</span> <span class="toc-text"> find</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#connected"><span class="toc-number">3.2.</span> <span class="toc-text"> connected</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#union"><span class="toc-number">3.3.</span> <span class="toc-text"> union</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF"><span class="toc-number">4.</span> <span class="toc-text"> 代码模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text"> 复杂度分析</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="bookmark" title="并查集">并查集</a></li><li><a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%89%8D%E7%BC%80%E6%A0%91/" rel="bookmark" title="前缀树">前缀树</a></li><li><a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="bookmark" title="动态规划">动态规划</a></li><li><a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="bookmark" title="滑动窗口">滑动窗口</a></li><li><a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="bookmark" title="快速排序">快速排序</a></li><li><a href="/blog/posts/2022/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F/" rel="bookmark" title="排序算法">排序算法</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="凛"
+      data-src="/blog/images/avatar.jpg">
+  <p class="name" itemprop="name">凛</p>
+  <div class="description" itemprop="description">决定未来的不是过去，而是现在。</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/blog/archives/">
+        <span class="count">37</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/blog/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/blog/tags/">
+        <span class="count">17</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NodWlsaW56aQ==" title="https:&#x2F;&#x2F;github.com&#x2F;shuilinzi"><i class="ic i-github"></i></span>
+      <span class="exturl item bilibili" data-url="aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzUxODg4NzUw" title="https:&#x2F;&#x2F;space.bilibili.com&#x2F;351888750"><i class="ic i-bilibili"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOnNodWlsaW56aUBxcS5jb20=" title="mailto:shuilinzi@qq.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/blog/books" rel="section"><i class="ic i-list-alt"></i>书单</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/friends/" rel="section"><i class="ic i-heart"></i>友链</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/blog/posts/2021/essay/10%E6%9C%88%E6%80%BB%E7%BB%93/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/blog/posts/2021/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%89%8D%E7%BC%80%E6%A0%91/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">凛 @ Lin's Blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">127k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:55</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'posts/2021/数据结构/并查集/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,560 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="1Hab_KIvHH-eatUbPy7yo3aPEgWeumaimxEeMP9IX_A">
+
+
+<link rel="alternate" type="application/rss+xml" title="凛" href="https://shuilinzi.github.io/blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="凛" href="https://shuilinzi.github.io/blog/atom.xml" />
+<link rel="alternate" type="application/json" title="凛" href="https://shuilinzi.github.io/blog/feed.json" />
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Java,设计模式" />
+
+
+<link rel="canonical" href="https://shuilinzi.github.io/blog/posts/2022/backend/%E7%BB%93%E6%9E%84%E5%9E%8B1/">
+
+
+
+  <title>
+设计模式~结构型~外观模式(Facade)&适配器(Adapter)&桥接(Bridge) - 设计模式 - 学习笔记 |
+Lin's Blog = 凛</title>
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">设计模式~结构型~外观模式(Facade)&适配器(Adapter)&桥接(Bridge)
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-05-03 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-05-03T00:00:00+08:00">2022-05-03</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>5.3k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>5 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/blog/" rel="start">Lin's Blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/HKyzSd7NI3mlBpt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclffsa1cj20zk0m811l.jpg"></li>
+        </ul>
+      </div>
+    
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+
+    </header>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/blog/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="item" rel="index" title="分类于 学习笔记"><span itemprop="name">学习笔记</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="item" rel="index" title="分类于 设计模式"><span itemprop="name">设计模式</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://shuilinzi.github.io/blog/posts/2022/backend/%E7%BB%93%E6%9E%84%E5%9E%8B1/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/blog/images/avatar.jpg">
+    <meta itemprop="name" content="凛">
+    <meta itemprop="description" content=", 决定未来的不是过去，而是现在。">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="凛">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="外观模式facade"><a class="anchor" href="#外观模式facade">#</a> 外观模式 (Facade)</h1>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC9mNzEwNTE0NzVlMzI=">外观模式 (Facade) - 简书 </span></p>
+<h2 id="总结"><a class="anchor" href="#总结">#</a> 总结</h2>
+<p>外观模式就是为子系统中的一组接口提供一个一致的界面，Facade 模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</p>
+<p>就类似于我们后端所写的接口，然后前端只需要传参数调接口就行，他们根本不知道接口里面到底干了什么，也不需要知道干了什么。</p>
+<p>这里先对两个词进行一下说明，<strong>一个是界面，一个是接口</strong>。</p>
+<p>一提到界面，估计很多朋友的第一反应就是图形界面（GUI）。<strong>其实在这里提到的界面，主要指的是从一个组件外部来看这个组件，能够看到什么，这就是这个组件的界面，也就是所说的外观</strong>。</p>
+<p>比如：你从一个类外部来看这个类，那么这个类的 public 方法就是这个类的外观，因为你从类外部来看这个类，就能看到这些。</p>
+<p>再比如：你从一个模块外部来看这个模块，那么这个模块对外的接口就是这个模块的外观，因为你就只能看到这些接口，其它的模块内部实现的东西是被接口封装隔离了的。</p>
+<p>一提到接口，做 Java 的朋友的第一反应就是 interface。<strong>其实在这里提到的接口，主要是指的外部和内部交互的这么一个通道，通常是指的一些方法，可以是类的方法，也可以是 interface 的方法</strong>。也就是说，这里说的接口，并不等价于 interface，也有可能是一个类。</p>
+<p><strong>应用外观模式来解决的思路</strong></p>
+<p>仔细分析上面的问题，客户端想要操作更简单点，那就根据客户端的需要来给客户端定义一个简单的接口，然后让客户端调用这个接口，剩下的事情就不用客户端管，这样客户端就变得简单了。</p>
+<p>当然，<strong>这里所说的接口就是客户端和被访问的系统之间的一个通道，并不一定是指 Java 的 interface</strong>。事实上，这里所说的接口，在外观模式里面，通常指的是类，这个类被称为 “外观”。</p>
+<p><strong>外观模式就是通过引入这么一个外观类</strong>，在这个类里面定义客户端想要的简单的方法，然后在这些方法的实现里面，<strong>由外观类再去分别调用内部的多个模块来实现功能</strong>，从而让客户端变得简单，这样一来，客户端就只需要和外观类交互就可以了。</p>
+<h2 id="结构"><a class="anchor" href="#结构">#</a> 结构</h2>
+<p><strong>Facade：定义子系统的多个模块对外的高层接口</strong>，通常需要调用内部多个模块，从而把客户的请求代理给适当的子系统对象。</p>
+<p><strong>模块：接受 Facade 对象的委派，真正实现功能，各个模块之间可能有交互</strong>。但是请注意，<strong>Facade 对象知道各个模块，但是各个模块不应该知道 Facade 对象</strong>。</p>
+<h2 id="本质"><a class="anchor" href="#本质">#</a> 本质</h2>
+<blockquote>
+<p>外观模式的本质：<strong>封装交互，简化调用</strong>。</p>
+</blockquote>
+<p>Facade 封装了子系统外部和子系统内多个模块的交互过程，从而简化外部的调用。通过外观，子系统为外部提供一些高层的接口，以方便它们的使用。</p>
+<h1 id="适配器adapter"><a class="anchor" href="#适配器adapter">#</a> 适配器 (Adapter)</h1>
+<p>参考：</p>
+<ul>
+<li>图解设计模式</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC82ZjkzYTRlMGFlMjc=">【结构型模式八】适配器 (Adapter) - 简书 (jianshu.com)</span></li>
+</ul>
+<p>如图，中间的转换器可以当成适配器</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E5%90%8E%E7%AB%AF/%E9%80%82%E9%85%8D%E5%99%A8.webp" alt="适配器" /></p>
+<h2 id="背景"><a class="anchor" href="#背景">#</a> 背景</h2>
+<p>如果想让额定工作电压是直流 12 伏特的笔记本电脑在交流 100 伏特” 的 AC 电源下工作，应该怎么做呢？通常，我们会使用 AC 适配器，将家庭用的交流 100 伏特电压转换成我们所需要的直流 12 伏特电压。这就是适配器的工作，它位于实际情况与需求之间，填补两者之间的差异。适配器的英文是 Adapter, 意思是 “使… 相互适合的东西”。前面说的 AC 适配器的作用就是让工作于直流 12 伏特环境的笔记本电脑适合于交流 100 伏特的环境。</p>
+<h2 id="总结-2"><a class="anchor" href="#总结-2">#</a> 总结</h2>
+<p>将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+<p>适配器也可以是调用已经完成的接口，来实现新的接口。</p>
+<p>要使用适配器模式来实现示例，<strong>关键就是要实现这个适配器对象，它需要实现第二版的接口，但是在内部实现的时候，需要调用第一版已经实现的功能</strong>。也就是说，<strong>第二版的接口就相当于适配器模式中的 Target 接口，而第一版已有的实现就相当于适配器模式中的 Adaptee 对象</strong>。</p>
+<h2 id="结构-2"><a class="anchor" href="#结构-2">#</a> 结构</h2>
+<p><strong>Client：客户端</strong>，调用自己需要的领域接口 Target。</p>
+<p><strong>Target：定义客户端需要的跟特定领域相关的接口。</strong></p>
+<p><strong>Adaptee：已经存在的接口</strong>，通常能满足客户端的功能要求，<strong>但是接口与客户端要求的特定领域接口不一致，需要被适配</strong>。</p>
+<p><strong>Adapter：适配器，把 Adaptee 适配成为 Client 需要的 Target。</strong></p>
+<h2 id="本质-2"><a class="anchor" href="#本质-2">#</a> 本质</h2>
+<p><strong>适配器模式的本质：转换匹配，复用功能。</strong></p>
+<p>适配器通过转换调用已有的实现，从而能把已有的实现匹配成需要的接口，使之能满足客户端的需要。<strong>也就是说转换匹配是手段，而复用已有的功能才是目的。</strong></p>
+<p>在进行转换匹配的过程中，适配器还可以在转换调用的前后实现一些功能处理，也就是实现智能的适配。</p>
+<h2 id="实例"><a class="anchor" href="#实例">#</a> 实例</h2>
+<p><img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E5%90%8E%E7%AB%AF/%E9%80%82%E9%85%8D%E5%99%A8%E7%A4%BA%E4%BE%8B.webp" alt="适配器示例" /></p>
+<p>实例背景如图，已有功能 <code>Banner类</code> ，需求 <code>Print接口</code> ，根据 <code>Banner类</code> 完成 <code>Print接口</code> 的需求。</p>
+<h3 id="使用继承的适配器"><a class="anchor" href="#使用继承的适配器">#</a> 使用继承的适配器</h3>
+<p>现在的情况</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Banner</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">private</span> <span class="token class-name">String</span> string<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">Banner</span> <span class="token punctuation">(</span><span class="token class-name">String</span> string<span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        <span class="token keyword">this</span><span class="token punctuation">.</span>string <span class="token operator">=</span> string<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">showWithParen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"("</span><span class="token operator">+</span>string<span class="token operator">+</span><span class="token string">")"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">showWithAster</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token operator">+</span>string<span class="token operator">+</span><span class="token string">"*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="12"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>需求接口</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Print</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">void</span> <span class="token function">printWeak</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token keyword">void</span> <span class="token function">printStrong</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>PrintBanner 扮演适配器角色</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PrintBanner</span> <span class="token keyword">extends</span> <span class="token class-name">Banner</span> <span class="token keyword">implements</span> <span class="token class-name">Print</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">PrintBanner</span><span class="token punctuation">(</span><span class="token class-name">String</span> string<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>        <span class="token keyword">super</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="5"></td><td><pre></pre></td></tr><tr><td data-num="6"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printWeak</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>        <span class="token function">showWithParen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printStrong</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>        <span class="token function">showWithAster</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="15"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>客户端</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>        <span class="token class-name">PrintBanner</span> printBanner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PrintBanner</span><span class="token punctuation">(</span><span class="token string">"xttani"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        printBanner<span class="token punctuation">.</span><span class="token function">showWithAster</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        printBanner<span class="token punctuation">.</span><span class="token function">showWithParen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="什么时候使用"><a class="anchor" href="#什么时候使用">#</a> 什么时候使用</h2>
+<p><strong>如果你想要使用一个已经存在的类，但是它的接口不符合你的需求</strong>，这种情况可以使用适配器模式，来把已有的实现转换成你需要的接口</p>
+<p><strong>如果你想创建一个可以复用的类，这个类可能和一些不兼容的类一起工作</strong>，这种情况可以使用适配器模式，到时候需要什么就适配什么</p>
+<p><strong>如果你想使用一些已经存在的子类，但是不可能对每一个子类都进行适配</strong>，这种情况可以选用对象适配器，直接适配这些子类的父类就可以了。</p>
+<p><strong>版本升级和兼容性问题</strong>也可以使用适配器</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E5%90%8E%E7%AB%AF/%E9%80%82%E9%85%8D%E5%99%A83.webp" alt="适配器3" /></p>
+<h1 id="桥接bridge"><a class="anchor" href="#桥接bridge">#</a> 桥接 (Bridge)</h1>
+<p>参考：</p>
+<ul>
+<li>图解设计模式</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC9hZjZiMWIyN2Y2Mzg=">【结构型模式九】桥接模式 (Bridge) - 简书 (jianshu.com)</span></li>
+</ul>
+<h2 id="总结-3"><a class="anchor" href="#总结-3">#</a> 总结</h2>
+<p>定义：<strong>将抽象部分与它的实现部分分离，使它们都可以独立地变化。</strong></p>
+<p>当我们想要编写子类时，就需要像这样先确认自己的意图：“我是要增加功能呢？还是要增加实现呢？” 当类的层次结构只有一层时，功能层次结构与实现层次结构是混杂在一个层次结构中的。这样很容易使类的层次结构变得复杂，也难以透彻地理解类的层次结构。因为自己难以确定究竟应该在类的哪一个层次结构中去增加子类。<br />
+因此，我们需要将 “类的功能层次结构” 与 “类的实现层次结构” 分离为两个独立的类层次结构。</p>
+<p>当然，如果只是简单地将它们分开，两者之间必然会缺少联系。所以我们还需要在它们之间搭建一座桥梁。本章中要学习的 Bridge 模式的作用就是搭建这座桥梁</p>
+<h2 id="背景-2"><a class="anchor" href="#背景-2">#</a> 背景</h2>
+<p>Bridge 的意思是 “桥梁”。就像在现实世界中，桥梁的功能是将河流的两侧连接起来一样，<br />
+Bidg 模式的作用也是将两样东西连接起来，它们分别是类的功能层次结构和类的实现层次结构。<br />
+Bridge 模式的作用是在 “类的功能层次结构” 和 “类的实现层次结构” 之间搭建桥梁</p>
+<h2 id="结构-3"><a class="anchor" href="#结构-3">#</a> 结构</h2>
+<p>**Abstraction：抽象部分的接口。** 通常在这个对象里面，要维护一个实现部分的对象引用，在抽象对象里面的方法，需要调用实现部分的对象来完成。这个对象里面的方法，通常都是跟具体的业务相关的方法。</p>
+<p>**RefinedAbstraction：扩展抽象部分的接口，** 通常在这些对象里面，定义跟实际业务相关的方法，这些方法的实现通常会使用 Abstraction 中定义的方法，也可能需要调用实现部分的对象来完成。</p>
+<p>**Implementor：定义实现部分的接口，** 这个接口不用和 Abstraction 里面的方法一致，通常是由 Implementor 接口提供基本的操作，而 Abstraction 里面定义的是基于这些基本操作的业务方法，也就是说 Abstraction 定义了基于这些基本操作的较高层次的操作。</p>
+<p><strong>ConcreteImplementor：真正实现 Implementor 接口的对象。</strong></p>
+<h2 id="本质-3"><a class="anchor" href="#本质-3">#</a> 本质</h2>
+<blockquote>
+<p><strong>桥接模式的本质：分离抽象和实现。</strong></p>
+</blockquote>
+<p>** 桥接模式最重要的工作就是分离抽象部分和实现部分，这是解决问题的关键。** 只有把抽象和实现分离开了，才能够让它们可以独立的变化；只有抽象和实现可以独立的变化，系统才会有更好的可扩展性、可维护性。</p>
+<p>至于其它的好处，比如：可以动态切换实现、可以减少子类个数等。都是把抽象部分和实现部分分离过后，带来的，如果不把抽象部分和实现部分分离开，那就一切免谈了。<strong>所以综合来说，桥接模式的本质在于 “分离抽象和实现”</strong>。</p>
+<h2 id="实例-2"><a class="anchor" href="#实例-2">#</a> 实例</h2>
+<pre><code class="language-Java">public class Display &#123;
+    private DisplayImpl impl;
+
+    public Display(DisplayImpl impl) &#123;
+        this.impl = impl;
+    &#125;
+
+    public void open() &#123;
+        impl.rawOpen();
+    &#125;
+
+    public void print() &#123;
+        impl.rawPrint();
+    &#125;
+
+    public void cloese() &#123;
+        impl.rawClose();
+    &#125;
+
+    public final void display() &#123;
+        open();
+        print();
+        cloese();
+    &#125;
+&#125;
+</code></pre>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CountDisplay</span> <span class="token keyword">extends</span> <span class="token class-name">Display</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">CountDisplay</span><span class="token punctuation">(</span><span class="token class-name">DisplayImpl</span> impl<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>        <span class="token keyword">super</span><span class="token punctuation">(</span>impl<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">multiDisplay</span><span class="token punctuation">(</span><span class="token keyword">int</span> times<span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        <span class="token keyword">open</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> times<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>            <span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre></pre></td></tr><tr><td data-num="10"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        <span class="token function">cloese</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="13"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">DisplayImpl</span>  <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">rawOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">rawPrint</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">rawClose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StringDisplayImpl</span> <span class="token keyword">extends</span> <span class="token class-name">DisplayImpl</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">private</span> <span class="token class-name">String</span> string<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">int</span> width<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">StringDisplayImpl</span><span class="token punctuation">(</span><span class="token class-name">String</span> s<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        <span class="token keyword">this</span><span class="token punctuation">.</span>string <span class="token operator">=</span> s<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token class-name">StandardCharsets</span><span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="9"></td><td><pre></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rawOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>        <span class="token function">printLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="14"></td><td><pre></pre></td></tr><tr><td data-num="15"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="16"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rawPrint</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"|"</span> <span class="token operator">+</span> string <span class="token operator">+</span> <span class="token string">"|"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="19"></td><td><pre></pre></td></tr><tr><td data-num="20"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="21"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rawClose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="22"></td><td><pre>        <span class="token function">printLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="23"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="24"></td><td><pre></pre></td></tr><tr><td data-num="25"></td><td><pre>    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">printLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"+"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="27"></td><td><pre>        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> width<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="28"></td><td><pre>            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"-"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="29"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="30"></td><td><pre>        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"+"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="31"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="32"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>Bridge 模式的特征是将 “类的功能层次结构” 与 “类的实现层次结构” 分离开了。将类的这两个层次结构分离开有利于独立地对它们进行扩展。<br />
+当想要增加功能时，只需要在 “类的功能层次结构” 一侧增加类即可，不必对 “类的实现层次结构” 做任何修改。而且，增加后的功能可以被 “所有的实现” 使用。</p>
+
+      <div class="tags">
+          <a href="/blog/tags/Java/" rel="tag"><i class="ic i-tag"></i> Java</a>
+          <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="ic i-tag"></i> 设计模式</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-06-21 00:49:53" itemprop="dateModified" datetime="2022-06-21T00:49:53+08:00">2022-06-21</time>
+  </span>
+  <span id="posts/2022/backend/结构型1/" class="item leancloud_visitors" data-flag-title="设计模式~结构型~外观模式(Facade)&适配器(Adapter)&桥接(Bridge)" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>凛 <i class="ic i-at"><em>@</em></i>凛
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://shuilinzi.github.io/blog/posts/2022/backend/%E7%BB%93%E6%9E%84%E5%9E%8B1/" title="设计模式~结构型~外观模式(Facade)&amp;适配器(Adapter)&amp;桥接(Bridge)">https://shuilinzi.github.io/blog/posts/2022/backend/结构型1/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/blog/posts/2022/backend/%E7%BB%93%E6%9E%84%E5%9E%8B2/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipesng5oej20zk0m87d4.jpg" title="设计模式~结构型~组合模式(Composite) &amp; 享元模式(Flyweight)">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 设计模式</span>
+  <h3>设计模式~结构型~组合模式(Composite) & 享元模式(Flyweight)</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/blog/posts/2022/%E5%89%8D%E7%AB%AF/vue%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitf0kl1j20zk0m87fe.jpg" title="未命名">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>未命名</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8Ffacade"><span class="toc-number">1.</span> <span class="toc-text"> 外观模式 (Facade)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.1.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text"> 结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E8%B4%A8"><span class="toc-number">1.3.</span> <span class="toc-text"> 本质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%82%E9%85%8D%E5%99%A8adapter"><span class="toc-number">2.</span> <span class="toc-text"> 适配器 (Adapter)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.1.</span> <span class="toc-text"> 背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">2.2.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84-2"><span class="toc-number">2.3.</span> <span class="toc-text"> 结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E8%B4%A8-2"><span class="toc-number">2.4.</span> <span class="toc-text"> 本质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">2.5.</span> <span class="toc-text"> 实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BB%A7%E6%89%BF%E7%9A%84%E9%80%82%E9%85%8D%E5%99%A8"><span class="toc-number">2.5.1.</span> <span class="toc-text"> 使用继承的适配器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8"><span class="toc-number">2.6.</span> <span class="toc-text"> 什么时候使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%A5%E6%8E%A5bridge"><span class="toc-number">3.</span> <span class="toc-text"> 桥接 (Bridge)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-3"><span class="toc-number">3.1.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF-2"><span class="toc-number">3.2.</span> <span class="toc-text"> 背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84-3"><span class="toc-number">3.3.</span> <span class="toc-text"> 结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E8%B4%A8-3"><span class="toc-number">3.4.</span> <span class="toc-text"> 本质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-2"><span class="toc-number">3.5.</span> <span class="toc-text"> 实例</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/blog/posts/2022/backend/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="bookmark" title="设计模式~创建型~单例模式">设计模式~创建型~单例模式</a></li><li><a href="/blog/posts/2022/backend/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="bookmark" title="设计模式~创建型~工厂模式">设计模式~创建型~工厂模式</a></li><li><a href="/blog/posts/2022/backend/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="bookmark" title="设计模式~创建型~建造者模式&原型模式">设计模式~创建型~建造者模式&原型模式</a></li><li class="active"><a href="/blog/posts/2022/backend/%E7%BB%93%E6%9E%84%E5%9E%8B1/" rel="bookmark" title="设计模式~结构型~外观模式(Facade)&适配器(Adapter)&桥接(Bridge)">设计模式~结构型~外观模式(Facade)&适配器(Adapter)&桥接(Bridge)</a></li><li><a href="/blog/posts/2022/backend/%E7%BB%93%E6%9E%84%E5%9E%8B2/" rel="bookmark" title="设计模式~结构型~组合模式(Composite) & 享元模式(Flyweight)">设计模式~结构型~组合模式(Composite) & 享元模式(Flyweight)</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="凛"
+      data-src="/blog/images/avatar.jpg">
+  <p class="name" itemprop="name">凛</p>
+  <div class="description" itemprop="description">决定未来的不是过去，而是现在。</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/blog/archives/">
+        <span class="count">37</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/blog/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/blog/tags/">
+        <span class="count">17</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NodWlsaW56aQ==" title="https:&#x2F;&#x2F;github.com&#x2F;shuilinzi"><i class="ic i-github"></i></span>
+      <span class="exturl item bilibili" data-url="aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzUxODg4NzUw" title="https:&#x2F;&#x2F;space.bilibili.com&#x2F;351888750"><i class="ic i-bilibili"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOnNodWlsaW56aUBxcS5jb20=" title="mailto:shuilinzi@qq.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/blog/books" rel="section"><i class="ic i-list-alt"></i>书单</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/friends/" rel="section"><i class="ic i-heart"></i>友链</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/blog/posts/2022/backend/%E7%BB%93%E6%9E%84%E5%9E%8B2/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/blog/posts/2022/%E5%89%8D%E7%AB%AF/vue%E9%A1%B9%E7%9B%AE/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">凛 @ Lin's Blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">127k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:55</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'posts/2022/backend/结构型1/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

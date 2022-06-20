@@ -1,0 +1,573 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="1Hab_KIvHH-eatUbPy7yo3aPEgWeumaimxEeMP9IX_A">
+
+
+<link rel="alternate" type="application/rss+xml" title="凛" href="https://shuilinzi.github.io/blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="凛" href="https://shuilinzi.github.io/blog/atom.xml" />
+<link rel="alternate" type="application/json" title="凛" href="https://shuilinzi.github.io/blog/feed.json" />
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Java" />
+
+
+<link rel="canonical" href="https://shuilinzi.github.io/blog/posts/2021/backend/springboot/">
+
+
+
+  <title>
+重刷springboot(雷神) 学习笔记 - Java - 学习笔记 |
+Lin's Blog = 凛</title>
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">重刷springboot(雷神) 学习笔记
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-10-19 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-10-19T00:00:00+08:00">2021-10-19</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>5.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>5 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/blog/" rel="start">Lin's Blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4baakhj20zk0m8h5q.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+        </ul>
+      </div>
+    
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+
+    </header>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/blog/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="item" rel="index" title="分类于 学习笔记"><span itemprop="name">学习笔记</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/" itemprop="item" rel="index" title="分类于 Java"><span itemprop="name">Java</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://shuilinzi.github.io/blog/posts/2021/backend/springboot/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/blog/images/avatar.jpg">
+    <meta itemprop="name" content="凛">
+    <meta itemprop="description" content=", 决定未来的不是过去，而是现在。">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="凛">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>spring boot 脑海里面已经记不得什么时候学的了，重刷这门课的时候之前也对着视频写了不少项目了，刷完谷粒商城这个大项目之后，突然觉得自己有必要回过头来重新学学 boot 了，而且最近有些许迷茫，具体的会在其他博客总结，总之不要让自己停下来，本文不是把所有的知识笔记一点一点的从头记录，而是查漏补缺，把常用而自己记得不太清楚的记下来</p>
+<span id="more"></span>
+<h2 id="configurationproperties"><a class="anchor" href="#configurationproperties">#</a> @ConfigurationProperties</h2>
+<p>把配置文件里面的常量和 JavaBean 里面的变量进行绑定，注意 @ConfigurationProperties 和 @Component 两个注解缺一不可</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">/**</pre></td></tr><tr><td data-num="2"></td><td><pre> * 只有在容器中的组件，才会拥有 SpringBoot 提供的强大功能</pre></td></tr><tr><td data-num="3"></td><td><pre> */</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token annotation punctuation">@Data</span><span class="token comment">//Lombok 注解，自动生成 get,set 方法</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token annotation punctuation">@Component</span><span class="token comment">// 注入到容器中</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"tencent.sms"</span><span class="token punctuation">)</span> <span class="token comment">// 配置文件里面的前缀目录</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SmsKey</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>        <span class="token keyword">private</span> <span class="token class-name">String</span> regionId<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>        <span class="token keyword">private</span> <span class="token class-name">String</span> keyId<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>        <span class="token keyword">private</span> <span class="token class-name">String</span> keySecret<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        <span class="token keyword">private</span> <span class="token class-name">String</span> templateCode<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>        <span class="token keyword">private</span> <span class="token class-name">String</span> signName<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>        <span class="token keyword">private</span> <span class="token class-name">String</span> <span class="token class-name">SmsSdkAppId</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><blockquote>
+<p>注入容器的时候会出现红色框框，而且在配置文件中自定义的配置没有代码提示，在 pom 文件中加入下面的代码解决 (参照官网)，添加这个配置文件，在打包的时候记得取消打包这个，不然会把一些多余的类也打包进去，占用资源</p>
+</blockquote>
+<br>
+<p><img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E5%90%8E%E7%AB%AF/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%8F%90%E7%A4%BA.png" alt="配置文件提示" /></p>
+<figure class="highlight xml"><figcaption data-lang="XML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-configuration-processor<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></pre></td></tr></table></figure><p>@component 给一个类注解，@bean 给一个方法注解</p>
+<h2 id="普通注解和基本注解"><a class="anchor" href="#普通注解和基本注解">#</a> 普通注解和基本注解</h2>
+<ul>
+<li>@PathVariable 获取路径变量数据</li>
+<li>@RequestParam 获取普通参数数据</li>
+<li>@RequestHeader 获取请求头里面的数据 (带 key 就是指定 key 的数据，不带就是所有请求头的数据)</li>
+<li>@CookieValue 获取请求的 cookie 的数据 (带 key 就是指定 key 的数据，不带就是所有请求所有的 cookie 数据)</li>
+<li>@RequestBody 获取请求体，将前端传来的 json 数据封装成所需要的对象，以 json 格式传输数据 (如果是直接传普通的对象则不需要添加注解)</li>
+<li>@RequestAttribute 获取请求域里面的数据</li>
+</ul>
+<h2 id="自定义webmvcconfigure的两种实现"><a class="anchor" href="#自定义webmvcconfigure的两种实现">#</a> 自定义 WebMvcConfigure 的两种实现</h2>
+<ol>
+<li>在一个配置类中继承 WebMvcConfigure 的接口，然后在配置类中实现自定义方法</li>
+</ol>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token annotation punctuation">@Configuration</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OrderWebConfiguration</span> <span class="token keyword">implements</span> <span class="token class-name">WebMvcConfigurer</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>   <span class="token comment">// 添加自己手动写的拦截器</span></pre></td></tr><tr><td data-num="4"></td><td><pre>   <span class="token annotation punctuation">@Autowired</span></pre></td></tr><tr><td data-num="5"></td><td><pre>   <span class="token class-name">LoginUserInterceptor</span> loginUserInterceptor<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre></pre></td></tr><tr><td data-num="7"></td><td><pre>   <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="8"></td><td><pre>   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addInterceptors</span><span class="token punctuation">(</span><span class="token class-name">InterceptorRegistry</span> registry<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>       registry<span class="token punctuation">.</span><span class="token function">addInterceptor</span><span class="token punctuation">(</span>loginUserInterceptor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addPathPatterns</span><span class="token punctuation">(</span><span class="token string">"/**"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>   <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><ol start="2">
+<li>直接在配置类中放入想要自定义的实现类 (@Bean)</li>
+</ol>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token annotation punctuation">@Configuration</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OrderWebConfiguration</span>  <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token comment">// 添加自己手动写的拦截器</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token annotation punctuation">@Autowired</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token class-name">LoginUserInterceptor</span> loginUserInterceptor<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre></pre></td></tr><tr><td data-num="7"></td><td><pre>    <span class="token annotation punctuation">@Bean</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">WebMvcConfigurer</span> <span class="token function">webMvcConfigurer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">WebMvcConfigurer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>            <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="11"></td><td><pre>            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addInterceptors</span><span class="token punctuation">(</span><span class="token class-name">InterceptorRegistry</span> registry<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>                registry<span class="token punctuation">.</span><span class="token function">addInterceptor</span><span class="token punctuation">(</span>loginUserInterceptor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addPathPatterns</span><span class="token punctuation">(</span><span class="token string">"/**"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="16"></td><td><pre></pre></td></tr><tr><td data-num="17"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="内容协商responsebody"><a class="anchor" href="#内容协商responsebody">#</a> 内容协商 (@ResponseBody)</h2>
+<p>springMVC 可以根据客户端接收能力的不同，返回不同媒体类型的数据</p>
+<h3 id="引入xml依赖"><a class="anchor" href="#引入xml依赖">#</a> 引入 xml 依赖</h3>
+<pre><code class="language-XML"> &lt;dependency&gt;
+            &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;
+            &lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h3 id="postman分别测试返回json和xml数据"><a class="anchor" href="#postman分别测试返回json和xml数据">#</a> postman 分别测试返回 json 和 xml 数据</h3>
+<p>只需要改变请求头 Accept 的字段，HTTP 协议规定，告诉服务器本客户端可以接受的数据类型</p>
+<h3 id="内容协商原理"><a class="anchor" href="#内容协商原理">#</a> 内容协商原理</h3>
+<ul>
+<li>1、判断当前响应头中是否已经有确定的媒体类型。MediaType</li>
+<li>2、获取客户端（PostMan、浏览器）支持接收的内容类型。（获取客户端 Accept 请求头字段）【application/xml】
+<ul>
+<li>contentNegotiationManager 内容协商管理器 默认使用基于请求头的策略</li>
+<li>HeaderContentNegotiationStrategy  确定客户端可以接收的内容类型</li>
+</ul>
+</li>
+<li>3、遍历循环所有当前系统的 MessageConverter，看谁支持操作这个对象 (Person 对象)</li>
+<li>4、找到支持操作 Person 的 converter，把 converter 支持的媒体类型统计出来。</li>
+<li>5、客户端需要【application/xml】。服务端能力【10 种、json、xml】</li>
+<li>6、进行内容协商的最佳匹配媒体类型</li>
+<li>7、用支持将对象转为最佳匹配媒体类型的 converter，调用它进行转化</li>
+</ul>
+<h3 id="开启浏览器参数方式内容协商功能"><a class="anchor" href="#开启浏览器参数方式内容协商功能">#</a> 开启浏览器参数方式内容协商功能</h3>
+<figure class="highlight yaml"><figcaption data-lang="YAML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token key atrule">spring</span><span class="token punctuation">:</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token key atrule">contentnegotiation</span><span class="token punctuation">:</span></pre></td></tr><tr><td data-num="3"></td><td><pre>      <span class="token key atrule">favor-parameter</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>  <span class="token comment">#开启请求参数内容协商模式</span></pre></td></tr></table></figure><p>发请求： <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3QvcGVyc29uP2Zvcm1hdD1qc29uJUVGJUJDJThDJUU4JUJEJUFDJUU2JTg4JTkwanNvbiVFNyVCMSVCQiVFNSU5RSU4QiVFNyU5QSU4NCVFNiU5NSVCMCVFNiU4RCVBRSVFRiVCQyU4Qw==">http://localhost:8080/test/person?format=json，转成 json 类型的数据，</span><br />
+<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3QvcGVyc29uP2Zvcm1hdD14bWwlRUYlQkMlOEMlRTglQkQlQUMlRTYlODglOTB4bWwlRTclQjElQkIlRTUlOUUlOEIlRTclOUElODQlRTYlOTUlQjAlRTYlOEQlQUUlRUYlQkMlOEMlRTUlQkMlODAlRTUlOTAlQUYlRTQlQjklOEIlRTUlOTAlOEUlRTQlQkMlOUElRTYlQTAlQjklRTYlOEQlQUUlRTglQUYlQjclRTYlQjElODIlRTklODclOEMlRTklOUQlQTIlRTclOUElODRmb3JtYXQlRTUlOEYlODIlRTYlOTUlQjAlRTglODclQUElRTUlOEElQTglRTglQkQlQUMlRTYlODglOTAlRTYlODklODAlRTklOUMlODAlRTglQTYlODElRTclOUElODQlRTclQjElQkIlRTUlOUUlOEI=">http://localhost:8080/test/person?format=xml，转成 xml 类型的数据，开启之后会根据请求里面的 format 参数自动转成所需要的类型</span></p>
+<h3 id="自定义messageconverter自定义内容协商"><a class="anchor" href="#自定义messageconverter自定义内容协商">#</a> 自定义 MessageConverter (自定义内容协商)</h3>
+<p>在 webMvcConfigurer 中配置即可</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token annotation punctuation">@Bean</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">WebMvcConfigurer</span> <span class="token function">webMvcConfigurer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">WebMvcConfigurer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre></pre></td></tr><tr><td data-num="5"></td><td><pre>            <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="6"></td><td><pre>            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">extendMessageConverters</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">HttpMessageConverter</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span><span class="token punctuation">></span></span> converters<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="7"></td><td><pre></pre></td></tr><tr><td data-num="8"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="拦截器"><a class="anchor" href="#拦截器">#</a> 拦截器</h2>
+<h3 id="servlet原生过滤器"><a class="anchor" href="#servlet原生过滤器">#</a> Servlet 原生过滤器</h3>
+<p><img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E5%90%8E%E7%AB%AF/%E6%8B%A6%E6%88%AA%E5%99%A8%E9%93%BE.webp" alt="拦截器链" /></p>
+<ul>
+<li>链接过滤器链的操作流程
+<ul>
+<li>如果放行之后不想让线程进行执行后面的代码，则需要 return，在过滤器里面判断登录和拦截资源</li>
+</ul>
+</li>
+</ul>
+<pre><code>@WebFilter()//拦截路径,对什么进行拦截
+public class Filter implements javax.servlet.Filter  &#123;
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException &#123;
+        javax.servlet.Filter.super.init(filterConfig);
+    &#125;
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException &#123;
+        
+    &#125;
+
+    @Override
+    public void destroy() &#123;
+        javax.servlet.Filter.super.destroy();
+    &#125;
+&#125;
+</code></pre>
+<h3 id="handlerinterceptor接口"><a class="anchor" href="#handlerinterceptor接口">#</a> HandlerInterceptor 接口</h3>
+<p>实现拦截器的两个步骤</p>
+<ol>
+<li>编写一个拦截器 HandlerInterceptor 接口，<strong>Interceptor 是 spring 家定义的接口，可以实现自动注入 @Autowired</strong></li>
+<li>拦截器注册到容器中 (实现 WebMvcConfigurer 的 addInterceptors,addInterceptors 的时候可以 new 一个，也可以 Autowired 一个然后自动注入)</li>
+<li>指定拦截规则 (如果是拦截所有，静态资源也会被拦截)</li>
+</ol>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">/**</pre></td></tr><tr><td data-num="2"></td><td><pre> * 登录检查</pre></td></tr><tr><td data-num="3"></td><td><pre> * 1、配置好拦截器要拦截哪些请求</pre></td></tr><tr><td data-num="4"></td><td><pre> * 2、把这些配置放在容器中</pre></td></tr><tr><td data-num="5"></td><td><pre> */</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token annotation punctuation">@Slf4j</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginInterceptor</span> <span class="token keyword">implements</span> <span class="token class-name">HandlerInterceptor</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token comment">/**</pre></td></tr><tr><td data-num="10"></td><td><pre>     * 目标方法执行之前</pre></td></tr><tr><td data-num="11"></td><td><pre>     */</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">preHandle</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">,</span> <span class="token class-name">Object</span> handler<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="14"></td><td><pre></pre></td></tr><tr><td data-num="15"></td><td><pre>        <span class="token class-name">String</span> requestURI <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getRequestURI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"preHandle拦截的请求路径是&#123;&#125;"</span><span class="token punctuation">,</span>requestURI<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre></pre></td></tr><tr><td data-num="18"></td><td><pre>        <span class="token comment">// 登录检查逻辑</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token class-name">HttpSession</span> session <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre></pre></td></tr><tr><td data-num="21"></td><td><pre>        <span class="token class-name">Object</span> loginUser <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">"loginUser"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="22"></td><td><pre></pre></td></tr><tr><td data-num="23"></td><td><pre>        <span class="token keyword">if</span><span class="token punctuation">(</span>loginUser <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="24"></td><td><pre>            <span class="token comment">// 放行</span></pre></td></tr><tr><td data-num="25"></td><td><pre>            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="27"></td><td><pre></pre></td></tr><tr><td data-num="28"></td><td><pre>        <span class="token comment">// 拦截住。未登录。跳转到登录页</span></pre></td></tr><tr><td data-num="29"></td><td><pre>        request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span><span class="token string">"请先登录"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="30"></td><td><pre><span class="token comment">//        re.sendRedirect("/");</span></pre></td></tr><tr><td data-num="31"></td><td><pre>        request<span class="token punctuation">.</span><span class="token function">getRequestDispatcher</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forward</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="32"></td><td><pre>        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="33"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="34"></td><td><pre></pre></td></tr><tr><td data-num="35"></td><td><pre>    <span class="token comment">/**</pre></td></tr><tr><td data-num="36"></td><td><pre>     * 目标方法执行完成以后</pre></td></tr><tr><td data-num="37"></td><td><pre>     */</span></pre></td></tr><tr><td data-num="38"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="39"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">postHandle</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">,</span> <span class="token class-name">Object</span> handler<span class="token punctuation">,</span> <span class="token class-name">ModelAndView</span> modelAndView<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="40"></td><td><pre>        </pre></td></tr><tr><td data-num="41"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="42"></td><td><pre></pre></td></tr><tr><td data-num="43"></td><td><pre>    <span class="token comment">/**</pre></td></tr><tr><td data-num="44"></td><td><pre>     * 页面渲染以后</pre></td></tr><tr><td data-num="45"></td><td><pre>     */</span></pre></td></tr><tr><td data-num="46"></td><td><pre>    <span class="token annotation punctuation">@Override</span></pre></td></tr><tr><td data-num="47"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterCompletion</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">,</span> <span class="token class-name">Object</span> handler<span class="token punctuation">,</span> <span class="token class-name">Exception</span> ex<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="48"></td><td><pre>        </pre></td></tr><tr><td data-num="49"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="50"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><ul>
+<li>拦截器执行的流程图<br></li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/%E5%90%8E%E7%AB%AF/%E6%8B%A6%E6%88%AA%E5%99%A8%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt="拦截器执行流程" /></p>
+<h2 id="异常处理"><a class="anchor" href="#异常处理">#</a> 异常处理</h2>
+<h3 id="定制错误处理"><a class="anchor" href="#定制错误处理">#</a> 定制错误处理</h3>
+<ul>
+<li>自定义错误页
+<ul>
+<li>error/404.html   error/5xx.html；有精确的错误状态码页面就匹配精确，没有就找 4xx.html；如果都没有就触发白页</li>
+</ul>
+</li>
+<li>@ControllerAdvice+@ExceptionHandler 处理全局异常；底层是 ExceptionHandlerExceptionResolver 支持的</li>
+</ul>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">// 统一异常处理类</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token annotation punctuation">@ControllerAdvice</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalExceptionHandler</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token annotation punctuation">@ResponseBody</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">Exception</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="6"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">ResultData</span> <span class="token function">error</span><span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token comment">// 统一异常的通用处理</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>        <span class="token keyword">return</span> <span class="token class-name">ResultData</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token annotation punctuation">@ResponseBody</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">GuliException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token comment">// 自定义异常处理，自定义 GuliException</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">ResultData</span> <span class="token function">error</span><span class="token punctuation">(</span><span class="token class-name">GuliException</span> e<span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>        <span class="token keyword">return</span> <span class="token class-name">ResultData</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">code</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">message</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">getMsg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="17"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="web原生组件注入servlet-filter-listener"><a class="anchor" href="#web原生组件注入servlet-filter-listener">#</a> Web 原生组件注入 (Servlet、Filter、Listener)</h2>
+<h3 id="使用servlet-api"><a class="anchor" href="#使用servlet-api">#</a> 使用 Servlet API</h3>
+<p>在主启动类上加 @ServletComponentScan (basePackages = &quot;com.atguigu.admin&quot;) : 指定原生 Servlet 组件都放在那里，然后在对应的类上加不同的注解，<br><br />
+@WebServlet (urlPatterns = &quot;/my&quot;)：效果：直接响应，<strong>没有经过 Spring 的拦截器</strong><br><br />
+@WebFilter(urlPatterns=&quot;/css/*&quot;)<br><br />
+@WebListener<br></p>
+<h2 id="mybatis-plus分页查询"><a class="anchor" href="#mybatis-plus分页查询">#</a> MyBatis-Plus 分页查询</h2>
+<p>Page 继承了 Ipage</p>
+<h2 id="profile功能"><a class="anchor" href="#profile功能">#</a> Profile 功能</h2>
+<p>为了方便多环境适配，spring boot 简化了 profile 功能</p>
+<ul>
+<li>默认配置文件 application.yaml; 任何时候都会加载</li>
+<li>指定环境配置文件 application-{生产环境}.yaml</li>
+<li>激活指定环境
+<ul>
+<li>配置文件激活</li>
+<li>命令行激活: java -jar xxx.jar --spring.profiles.active=prod (可以任意修改)<br />
+ 使用此功能，打包的时候使用不同的生产环境，开发时用测试环境，打包时用生产环境</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考文档"><a class="anchor" href="#参考文档">#</a> 参考文档</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cueXVxdWUuY29tL2F0Z3VpZ3Uvc3ByaW5nYm9vdA==">雷神手敲笔记</span></p>
+
+      <div class="tags">
+          <a href="/blog/tags/Java/" rel="tag"><i class="ic i-tag"></i> Java</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-06-21 00:49:53" itemprop="dateModified" datetime="2022-06-21T00:49:53+08:00">2022-06-21</time>
+  </span>
+  <span id="posts/2021/backend/springboot/" class="item leancloud_visitors" data-flag-title="重刷springboot(雷神) 学习笔记" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>凛 <i class="ic i-at"><em>@</em></i>凛
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://shuilinzi.github.io/blog/posts/2021/backend/springboot/" title="重刷springboot(雷神) 学习笔记">https://shuilinzi.github.io/blog/posts/2021/backend/springboot/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/blog/posts/2021/essay/%E5%92%8C%E5%AD%A6%E9%95%BF%E6%B2%9F%E9%80%9A%E4%BA%A4%E6%B5%81/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipetfk5zwj20zk0m8e81.jpg" title="和18级学长的一次沟通">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 随笔</span>
+  <h3>和18级学长的一次沟通</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/blog/posts/2021/book/%E8%A2%AB%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%8B%87%E6%B0%94/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;ShuiLinzi&#x2F;blog-image@master&#x2F;动漫&#x2F;image.6u5oew5l8ns0.webp" title="被讨厌的勇气">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 读书</span>
+  <h3>被讨厌的勇气</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#configurationproperties"><span class="toc-number">1.</span> <span class="toc-text"> @ConfigurationProperties</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E6%B3%A8%E8%A7%A3%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%B3%A8%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text"> 普通注解和基本注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89webmvcconfigure%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text"> 自定义 WebMvcConfigure 的两种实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86responsebody"><span class="toc-number">4.</span> <span class="toc-text"> 内容协商 (@ResponseBody)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5xml%E4%BE%9D%E8%B5%96"><span class="toc-number">4.1.</span> <span class="toc-text"> 引入 xml 依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#postman%E5%88%86%E5%88%AB%E6%B5%8B%E8%AF%95%E8%BF%94%E5%9B%9Ejson%E5%92%8Cxml%E6%95%B0%E6%8D%AE"><span class="toc-number">4.2.</span> <span class="toc-text"> postman 分别测试返回 json 和 xml 数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E5%8E%9F%E7%90%86"><span class="toc-number">4.3.</span> <span class="toc-text"> 内容协商原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%82%E6%95%B0%E6%96%B9%E5%BC%8F%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E5%8A%9F%E8%83%BD"><span class="toc-number">4.4.</span> <span class="toc-text"> 开启浏览器参数方式内容协商功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89messageconverter%E8%87%AA%E5%AE%9A%E4%B9%89%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86"><span class="toc-number">4.5.</span> <span class="toc-text"> 自定义 MessageConverter (自定义内容协商)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="toc-number">5.</span> <span class="toc-text"> 拦截器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#servlet%E5%8E%9F%E7%94%9F%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">5.1.</span> <span class="toc-text"> Servlet 原生过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#handlerinterceptor%E6%8E%A5%E5%8F%A3"><span class="toc-number">5.2.</span> <span class="toc-text"> HandlerInterceptor 接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text"> 异常处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E5%88%B6%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-number">6.1.</span> <span class="toc-text"> 定制错误处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E5%8E%9F%E7%94%9F%E7%BB%84%E4%BB%B6%E6%B3%A8%E5%85%A5servlet-filter-listener"><span class="toc-number">7.</span> <span class="toc-text"> Web 原生组件注入 (Servlet、Filter、Listener)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8servlet-api"><span class="toc-number">7.1.</span> <span class="toc-text"> 使用 Servlet API</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mybatis-plus%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="toc-number">8.</span> <span class="toc-text"> MyBatis-Plus 分页查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#profile%E5%8A%9F%E8%83%BD"><span class="toc-number">9.</span> <span class="toc-text"> Profile 功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">10.</span> <span class="toc-text"> 参考文档</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/blog/posts/2021/backend/ngnix%E5%92%8Cgateway%E6%90%AD%E9%85%8D%E4%BD%BF%E7%94%A8/" rel="bookmark" title="nginx和gateway配合使用">nginx和gateway配合使用</a></li><li><a href="/blog/posts/2021/backend/redis/" rel="bookmark" title="redis缓存使用问题及解决办法">redis缓存使用问题及解决办法</a></li><li class="active"><a href="/blog/posts/2021/backend/springboot/" rel="bookmark" title="重刷springboot(雷神) 学习笔记">重刷springboot(雷神) 学习笔记</a></li><li><a href="/blog/posts/2021/backend/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7/" rel="bookmark" title="Java基础知识扫盲">Java基础知识扫盲</a></li><li><a href="/blog/posts/2022/backend/linux/" rel="bookmark" title="linux学习笔记">linux学习笔记</a></li><li><a href="/blog/posts/2022/backend/maven%E6%89%AB%E7%9B%B2/" rel="bookmark" title="maven查漏补缺">maven查漏补缺</a></li><li><a href="/blog/posts/2022/backend/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B~Stream%E6%B5%81/" rel="bookmark" title="函数式编程~Stream流">函数式编程~Stream流</a></li><li><a href="/blog/posts/2022/backend/springsecurity/" rel="bookmark" title="SpringSecurity学习笔记">SpringSecurity学习笔记</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="凛"
+      data-src="/blog/images/avatar.jpg">
+  <p class="name" itemprop="name">凛</p>
+  <div class="description" itemprop="description">决定未来的不是过去，而是现在。</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/blog/archives/">
+        <span class="count">37</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/blog/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/blog/tags/">
+        <span class="count">17</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NodWlsaW56aQ==" title="https:&#x2F;&#x2F;github.com&#x2F;shuilinzi"><i class="ic i-github"></i></span>
+      <span class="exturl item bilibili" data-url="aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzUxODg4NzUw" title="https:&#x2F;&#x2F;space.bilibili.com&#x2F;351888750"><i class="ic i-bilibili"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOnNodWlsaW56aUBxcS5jb20=" title="mailto:shuilinzi@qq.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/blog/books" rel="section"><i class="ic i-list-alt"></i>书单</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/friends/" rel="section"><i class="ic i-heart"></i>友链</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/blog/posts/2021/essay/%E5%92%8C%E5%AD%A6%E9%95%BF%E6%B2%9F%E9%80%9A%E4%BA%A4%E6%B5%81/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/blog/posts/2021/book/%E8%A2%AB%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%8B%87%E6%B0%94/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">凛 @ Lin's Blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">127k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:55</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'posts/2021/backend/springboot/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

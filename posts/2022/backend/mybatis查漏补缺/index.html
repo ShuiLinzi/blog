@@ -1,0 +1,516 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="1Hab_KIvHH-eatUbPy7yo3aPEgWeumaimxEeMP9IX_A">
+
+
+<link rel="alternate" type="application/rss+xml" title="凛" href="https://shuilinzi.github.io/blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="凛" href="https://shuilinzi.github.io/blog/atom.xml" />
+<link rel="alternate" type="application/json" title="凛" href="https://shuilinzi.github.io/blog/feed.json" />
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/blog/css/app.css?v=0.2.5">
+
+  
+
+<link rel="canonical" href="https://shuilinzi.github.io/blog/posts/2022/backend/mybatis%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/">
+
+
+
+  <title>
+mybatis查漏补缺 |
+Lin's Blog = 凛</title>
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">mybatis查漏补缺
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-04-20 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-04-20T00:00:00+08:00">2022-04-20</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.6k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/blog/" rel="start">Lin's Blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/ShuiLinzi/blog-image@master/后端/mybatis.webp">
+      </div>
+    
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+
+    </header>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/blog/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://shuilinzi.github.io/blog/posts/2022/backend/mybatis%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/blog/images/avatar.jpg">
+    <meta itemprop="name" content="凛">
+    <meta itemprop="description" content=", 决定未来的不是过去，而是现在。">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="凛">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="面向接口编程保持两个一致"><a class="anchor" href="#面向接口编程保持两个一致">#</a> 面向接口编程保持两个一致</h1>
+<div class="note info">
+<p>mybatis 核心配置文件：数据库信息和 mapper.xml<br />
+ 在 application.yml 中配置，不需要额外配置了</p>
+</div>
+<p>MyBatis 面向接口编程的两个一致：</p>
+<ol>
+<li>映射文件的 homespace 要和 napper 接口的全类名保持一致</li>
+<li>映射文件中 SQL 语句的 id 要和 mapper 接口中的方法名一致</li>
+</ol>
+<h2 id="从-xml-中构建-sqlsessionfactory"><a class="anchor" href="#从-xml-中构建-sqlsessionfactory">#</a> 从 XML 中构建 SqlSessionFactory</h2>
+<p>每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为核心的。SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。而 SqlSessionFactoryBuilder 则可以从 XML 配置文件或一个预先配置的 Configuration 实例来构建出 SqlSessionFactory 实例。</p>
+<p>从 XML 文件中构建 SqlSessionFactory 的实例非常简单，建议使用类路径下的资源文件进行配置。 但也可以使用任意的输入流（InputStream）实例，比如用文件路径字符串或 file:// URL 构造的输入流。MyBatis 包含一个名叫 Resources 的工具类，它包含一些实用方法，使得从类路径或其它位置加载资源文件更加容易。</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token class-name">String</span> resource <span class="token operator">=</span> <span class="token string">"org/mybatis/example/mybatis-config.xml"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token class-name">InputStream</span> inputStream <span class="token operator">=</span> <span class="token class-name">Resources</span><span class="token punctuation">.</span><span class="token function">getResourceAsStream</span><span class="token punctuation">(</span>resource<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token class-name">SqlSessionFactory</span> sqlSessionFactory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SqlSessionFactoryBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span>inputStream<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr></table></figure><h2 id="打印sql语句"><a class="anchor" href="#打印sql语句">#</a> 打印 sql 语句</h2>
+<p>使用 log4j 的 jar 包，+ 一个配置文件</p>
+<h1 id="xml里面的sql语句"><a class="anchor" href="#xml里面的sql语句">#</a> xml 里面的 SQL 语句</h1>
+<h2 id="resultmap"><a class="anchor" href="#resultmap">#</a> resultMap</h2>
+<p>查询功能必须设置 resultType 或者 resultMap<br />
+resultType：设置默认的映射关系<br />
+ resultMap：设置自定义映射关系</p>
+<figure class="highlight xml"><figcaption data-lang="XML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>listRolesByUserInfoId<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>java.lang.String<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre>        SELECT</pre></td></tr><tr><td data-num="3"></td><td><pre>         role_label</pre></td></tr><tr><td data-num="4"></td><td><pre>        FROM</pre></td></tr><tr><td data-num="5"></td><td><pre>         tb_role r,</pre></td></tr><tr><td data-num="6"></td><td><pre>         tb_user_role ur</pre></td></tr><tr><td data-num="7"></td><td><pre>         WHERE</pre></td></tr><tr><td data-num="8"></td><td><pre>         r.id = ur.role_id</pre></td></tr><tr><td data-num="9"></td><td><pre>        AND ur.user_id = #&#123;userInfoId&#125;</pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span></pre></td></tr></table></figure><h2 id="占位符"><a class="anchor" href="#占位符">#</a> 占位符</h2>
+<ol>
+<li>
+<p>mapper 接口方法的参数为单个的字面量类型<br />
+可以通过 <code>$&#123;&#125;</code> , <code>#&#123;&#125;</code>  以任意的名称获取参数值，但是需要注意 <code>$&#123;&#125;</code>  的单引号问题</p>
+</li>
+<li>
+<p>mapper 接口方法的参数为多个时，此时 MyBatis 会将这些参数放在一个 map 集合中，以两种方式进行存储</p>
+<ul>
+<li>以 arg0，arg1.. 为键进行传递</li>
+<li>以 param1，param2.. 为键进行传递</li>
+</ul>
+</li>
+<li>
+<p>使用 Param, 注解命名参数此 MyBatis 会将这些参数放在一个 map 集合中，以两种方式进行存储以 @Param 注解的值为键，以参数为值因此只需要通过 #{} 和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow></mrow><mtext>以键的方式访问值即可，但是需要注意</mtext></mrow><annotation encoding="application/x-tex">{}以键的方式访问值即可，但是需要注意</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord"></span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">键</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">式</span><span class="mord cjk_fallback">访</span><span class="mord cjk_fallback">问</span><span class="mord cjk_fallback">值</span><span class="mord cjk_fallback">即</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">但</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">需</span><span class="mord cjk_fallback">要</span><span class="mord cjk_fallback">注</span><span class="mord cjk_fallback">意</span></span></span></span> {} 的单引号问题</p>
+</li>
+</ol>
+<h2 id="特殊sql"><a class="anchor" href="#特殊sql">#</a> 特殊 sql</h2>
+<h3 id="模糊查询"><a class="anchor" href="#模糊查询">#</a> 模糊查询</h3>
+<figure class="highlight xml"><figcaption data-lang="XML"><span>方式一</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>findByName<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>string<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>com.sc.domain.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre> select * from user where username like '%$&#123;value&#125;%'</pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span></pre></td></tr></table></figure><figure class="highlight xml"><figcaption data-lang="XML"><span>方式二推荐</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>findByName<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>string<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>com.sc.domain.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre> select * from user where username like "%"#&#123;value&#125;"%"</pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span></pre></td></tr></table></figure><h3 id="驼峰映射"><a class="anchor" href="#驼峰映射">#</a> 驼峰映射</h3>
+<p>全局配置文件中有关于驼峰的配置，默认为 false，可查看官网</p>
+<h2 id="resultmap-2"><a class="anchor" href="#resultmap-2">#</a> resultMap</h2>
+<p>设置自定义映射关系，主要用于<strong>多对一</strong>或者<strong>一对多</strong>的联表查询</p>
+<ul>
+<li>id：唯一标识，不能重复</li>
+<li>type：设置映射关系中的实体类的类型</li>
+</ul>
+<h3 id="多对一联表查询"><a class="anchor" href="#多对一联表查询">#</a> 多对一联表查询</h3>
+<ol>
+<li>级联属性查询</li>
+<li>association 查询</li>
+<li>association 的分布查询</li>
+</ol>
+<h3 id="一对多联表查询"><a class="anchor" href="#一对多联表查询">#</a> 一对多联表查询</h3>
+<p>collection</p>
+<figure class="highlight xml"><figcaption data-lang="XML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">&lt;!-- property="tagDTOList" 对应的属性字段 --></span></pre></td></tr><tr><td data-num="2"></td><td><pre> <span class="token comment">&lt;!-- ofType="com.minzheng.blog.dto.TagDTO" 里面具体的值 --></span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>collection</span> <span class="token attr-name">property</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tagDTOList<span class="token punctuation">"</span></span> <span class="token attr-name">ofType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>com.minzheng.blog.dto.TagDTO<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="4"></td><td><pre>            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span> <span class="token attr-name">column</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tag_id<span class="token punctuation">"</span></span> <span class="token attr-name">property</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span></pre></td></tr><tr><td data-num="5"></td><td><pre>            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>result</span> <span class="token attr-name">column</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tag_name<span class="token punctuation">"</span></span> <span class="token attr-name">property</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tagName<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span></pre></td></tr><tr><td data-num="6"></td><td><pre>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>collection</span><span class="token punctuation">></span></span></pre></td></tr></table></figure><p>分布查询</p>
+<h1 id="分页查询"><a class="anchor" href="#分页查询">#</a> 分页查询</h1>
+<ol>
+<li>导入 pageHelper 的 jar 包</li>
+<li>在 mybatis 的核心配置文件中配置 pageHelper 的插件配置</li>
+</ol>
+<p>limit index,pageSize</p>
+<ul>
+<li>index: 当前页的起始索引</li>
+<li>pageSize: 每页显示的条数</li>
+<li>pageNum: 当前页的页码</li>
+</ul>
+<ol>
+<li>在查询之前开启分页</li>
+<li>在查询之后获取分页相关信息</li>
+</ol>
+<h1 id="mp自带的sql语句日志"><a class="anchor" href="#mp自带的sql语句日志">#</a> mp 自带的 sql 语句日志</h1>
+<figure class="highlight yml"><figcaption data-lang="YAML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token key atrule">mybatis-plus</span><span class="token punctuation">:</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token key atrule">configuration</span><span class="token punctuation">:</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token key atrule">log-impl</span><span class="token punctuation">:</span> org.apache.ibatis.logging.stdout.StdOutImpl</pre></td></tr></table></figure><p>mp 默认开启了驼峰映射</p>
+<p>常用注解:</p>
+<ul>
+<li>@TableName 表名映射</li>
+<li>@TableId 主键映射，里面的 type 可以修改主键的生成策略，比如自增策略，雪花算法策略</li>
+<li>@TableField 字段映射</li>
+<li>@TableLogic 逻辑删除</li>
+</ul>
+<h1 id="mp分页查询"><a class="anchor" href="#mp分页查询">#</a> mp 分页查询</h1>
+<p>首先在配饰类中配置分页查询插件，然后就可以直接使用了</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token class-name">Page</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> page <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Page</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    userMapper<span class="token punctuation">.</span><span class="token function">selectPage</span><span class="token punctuation">(</span>page<span class="token punctuation">,</span>querryWapper<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr></table></figure><h1 id="乐观锁插件"><a class="anchor" href="#乐观锁插件">#</a> 乐观锁插件</h1>
+<p>并发冲突乐观锁</p>
+<h1 id="mybatisx插件"><a class="anchor" href="#mybatisx插件">#</a> mybatisX 插件</h1>
+<p>插件比我想象的还要强大一些</p>
+<ul>
+<li>小鸟定位🐦</li>
+<li>代码生成器</li>
+<li>在 mapper 文件中自动生成 CRUD</li>
+</ul>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-06-21 00:49:53" itemprop="dateModified" datetime="2022-06-21T00:49:53+08:00">2022-06-21</time>
+  </span>
+  <span id="posts/2022/backend/mybatis查漏补缺/" class="item leancloud_visitors" data-flag-title="mybatis查漏补缺" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>凛 <i class="ic i-at"><em>@</em></i>凛
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://shuilinzi.github.io/blog/posts/2022/backend/mybatis%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/" title="mybatis查漏补缺">https://shuilinzi.github.io/blog/posts/2022/backend/mybatis查漏补缺/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/blog/posts/2022/backend/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B~Stream%E6%B5%81/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevo9j1jj20zk0m8e81.jpg" title="函数式编程~Stream流">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Java</span>
+  <h3>函数式编程~Stream流</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/blog/posts/2022/backend/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipet4bz0yj20zk0m8e81.jpg" title="设计模式~创建型~工厂模式">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 设计模式</span>
+  <h3>设计模式~创建型~工厂模式</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3%E7%BC%96%E7%A8%8B%E4%BF%9D%E6%8C%81%E4%B8%A4%E4%B8%AA%E4%B8%80%E8%87%B4"><span class="toc-number">1.</span> <span class="toc-text"> 面向接口编程保持两个一致</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E-xml-%E4%B8%AD%E6%9E%84%E5%BB%BA-sqlsessionfactory"><span class="toc-number">1.1.</span> <span class="toc-text"> 从 XML 中构建 SqlSessionFactory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8D%B0sql%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.2.</span> <span class="toc-text"> 打印 sql 语句</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#xml%E9%87%8C%E9%9D%A2%E7%9A%84sql%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.</span> <span class="toc-text"> xml 里面的 SQL 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#resultmap"><span class="toc-number">2.1.</span> <span class="toc-text"> resultMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%A0%E4%BD%8D%E7%AC%A6"><span class="toc-number">2.2.</span> <span class="toc-text"> 占位符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8Asql"><span class="toc-number">2.3.</span> <span class="toc-text"> 特殊 sql</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="toc-number">2.3.1.</span> <span class="toc-text"> 模糊查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%BC%E5%B3%B0%E6%98%A0%E5%B0%84"><span class="toc-number">2.3.2.</span> <span class="toc-text"> 驼峰映射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resultmap-2"><span class="toc-number">2.4.</span> <span class="toc-text"> resultMap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E8%81%94%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-number">2.4.1.</span> <span class="toc-text"> 多对一联表查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%AF%B9%E5%A4%9A%E8%81%94%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-number">2.4.2.</span> <span class="toc-text"> 一对多联表查询</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.</span> <span class="toc-text"> 分页查询</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mp%E8%87%AA%E5%B8%A6%E7%9A%84sql%E8%AF%AD%E5%8F%A5%E6%97%A5%E5%BF%97"><span class="toc-number">4.</span> <span class="toc-text"> mp 自带的 sql 语句日志</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mp%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="toc-number">5.</span> <span class="toc-text"> mp 分页查询</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%90%E8%A7%82%E9%94%81%E6%8F%92%E4%BB%B6"><span class="toc-number">6.</span> <span class="toc-text"> 乐观锁插件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mybatisx%E6%8F%92%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text"> mybatisX 插件</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="凛"
+      data-src="/blog/images/avatar.jpg">
+  <p class="name" itemprop="name">凛</p>
+  <div class="description" itemprop="description">决定未来的不是过去，而是现在。</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/blog/archives/">
+        <span class="count">37</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/blog/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/blog/tags/">
+        <span class="count">17</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NodWlsaW56aQ==" title="https:&#x2F;&#x2F;github.com&#x2F;shuilinzi"><i class="ic i-github"></i></span>
+      <span class="exturl item bilibili" data-url="aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzUxODg4NzUw" title="https:&#x2F;&#x2F;space.bilibili.com&#x2F;351888750"><i class="ic i-bilibili"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOnNodWlsaW56aUBxcS5jb20=" title="mailto:shuilinzi@qq.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/blog/books" rel="section"><i class="ic i-list-alt"></i>书单</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/friends/" rel="section"><i class="ic i-heart"></i>友链</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/blog/posts/2022/backend/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B~Stream%E6%B5%81/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/blog/posts/2022/backend/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">凛 @ Lin's Blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">127k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:55</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'posts/2022/backend/mybatis查漏补缺/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

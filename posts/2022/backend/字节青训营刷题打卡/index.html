@@ -1,0 +1,578 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="1Hab_KIvHH-eatUbPy7yo3aPEgWeumaimxEeMP9IX_A">
+
+
+<link rel="alternate" type="application/rss+xml" title="凛" href="https://shuilinzi.github.io/blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="凛" href="https://shuilinzi.github.io/blog/atom.xml" />
+<link rel="alternate" type="application/json" title="凛" href="https://shuilinzi.github.io/blog/feed.json" />
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="算法,刷题" />
+
+
+<link rel="canonical" href="https://shuilinzi.github.io/blog/posts/2022/backend/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%88%B7%E9%A2%98%E6%89%93%E5%8D%A1/">
+
+
+
+  <title>
+字节青训营每日一题 - 知识分享 |
+Lin's Blog = 凛</title>
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">字节青训营每日一题
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-04-14 00:00:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-04-14T00:00:00+08:00">2022-04-14</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>4.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/blog/" rel="start">Lin's Blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
+        </ul>
+      </div>
+    
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+
+    </header>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/blog/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/blog/categories/%E7%9F%A5%E8%AF%86%E5%88%86%E4%BA%AB/" itemprop="item" rel="index" title="分类于 知识分享"><span itemprop="name">知识分享</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://shuilinzi.github.io/blog/posts/2022/backend/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%88%B7%E9%A2%98%E6%89%93%E5%8D%A1/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/blog/images/avatar.jpg">
+    <meta itemprop="name" content="凛">
+    <meta itemprop="description" content=", 决定未来的不是过去，而是现在。">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="凛">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <div class="note primary">
+<p>关于 go 语言的考查题解没有收录，主要收录算法相关题目</p>
+</div>
+<h1 id="day1"><a class="anchor" href="#day1">#</a> DAY1</h1>
+<p><strong>一、【多选】Golang 通过 <code>plugin.(*Plugin).Lookup</code>  函数可以查找到插件里面定义的哪些东西</strong></p>
+<p><strong>a</strong>. 变量<br />
+<strong> b</strong>. 函数<br />
+ c. 类型<br />
+ d. 包</p>
+<p><strong>二、假如在抖音中发布视频时，可以选择带上位置信息，请设计一种数据结构或方案，用于存储检索位置信息（简化为平面坐标 x, y），以实现搜索附近视频的功能（如附近 3km）。</strong></p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p>坐标范围检索，有四叉树、geohash 等几种标准解法。这道题本质并不是考察对高阶算法的掌握，而是想发掘在学习教材 btree 等基础二分思想后，能否进一步思考解出更复杂的问题；<br />
+另外考察思维灵活程度，看是否能变通的解决问题，如距离并没有限定必须是欧式距离；位置可以不精确，可以容忍有误差等。</p>
+<ul>
+<li><strong>方法 1</strong>，四叉树（QTree）：在二叉树左、右节点的思想下，加入上、下、前、后等更多的方向，演进为四叉树和八叉树。高阶树比较超纲，相关实现省略</li>
+<li><strong>方法 2</strong>，geohash：把二维问题降为一维<br />
+如坐标（示例非标准 geohash，只是演示了思想）：<br />
+(12, 345) -&gt; (012, 345) -&gt; &quot;031425&quot;<br />
+(13, 348) -&gt; (013, 348) -&gt; &quot;031438&quot;<br />
+(2, 789) -&gt; (002, 789) -&gt; &quot;070829&quot;<br />
+最终做字符串前缀匹配，可得&quot;031425&quot;和&quot;031438&quot; 匹配到的位数最多，二者距离最近。求 3km 内的坐标，只需提前算出需匹配前几位即可，如匹配前 4 位，按 sql 表达是 LIKE '0314%'<br />
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC8yZmQwY2YxMmU1YmE=">geohash 算法详解</span></li>
+<li>方法 3，变通距离为 方圆 3km（曼哈顿距离），即 deltaX = 1500, deltaY = 1500，通过数据库解决 Create table tb_name (x int, y int) 并添加索引。<br />
+假如原点是 (x0, y0)，sql 如下：<br />
+WHERE (x &gt; x0 - 1500) AND (x &lt; x0 + 1500) AND (y &gt; y0 - 1500) AND (y &lt; y0 + 1500)</li>
+</ul>
+</div></details>
+<h1 id="day2"><a class="anchor" href="#day2">#</a> DAY2</h1>
+<p><strong>一、【多选】下列关于 Join 运算不正确的是：</strong><br />
+a. Nested Loop Join 不能使用索引做优化。<br />
+b. 如果左表太大，不能放入内存中，则不能使用 Hash Join。<br />
+c. 如果 Join 的一个输入表在 Join Key 上有序，则一定会使用 Sort Merge Join。<br />
+d. Broadcast Join 适用于一张表很小，另一张表很大的场景。</p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p>a、b、c；<br />
+Nested Loop Join 可以使用索引优化（Index Nested Loop Join）；<br />
+如果左表太大，不能放入内存，可以先对量表做分区，再对每个分区做 Hash Join （Parititioned Hash Join）；<br />
+如果 Join 的一个输入表在 Join Key 上有序，也可以 Hash Join，具体使用哪种 Join 方式取决于优化器的代价估计结果。</p>
+</div></details>
+<p><strong>二、给定一个正整数数组 arrs 和整数 K ，请找出该数组内乘积小于等于 k 的连续的子数组的个数，算法时间复杂度 o (n)。</strong></p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p>双指针思想，对于每个 right, 不断单调的移动 left，直到满足需求。</p>
+</div></details>
+<h1 id="day3"><a class="anchor" href="#day3">#</a> DAY3</h1>
+<p><strong>一、【多选】绝大多数硬盘可以提供哪些写入保证？</strong><br />
+a. 单个 sector 原子写入<br />
+ b. 单个 page 原子写入<br />
+ c. 硬盘顺序执行文件系统发送的操作<br />
+ d. 以上都不可以</p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p>d；<br />
+本题主要考察对于一个数据密集型应用开发者（比如数据库开发者、文件系统开发者），在数据不能出错的前提下，可以依赖磁盘的哪些能力，事实证明几乎没有什么能力可以依赖。<br />
+在随时可能断电的情况下，大多数硬件能提供单个 sector 的原子性写入；但是也有少数硬件连单个 sector 的写入都无法保证；如果一个 page 对应多个 sector，则单个 page 的完整写入总是无法得到保障。<br />
+对于同时发给硬盘的多个操作（比如写多个不连续的 sector），硬盘并不保证操作的顺序。结合其弱原子性，所以硬盘可能处在任何一个中间状态。这主要是由于机械硬盘的寻址优化策略和固态 / 机械硬盘的缓存策略导致的。</p>
+</div></details>
+<p><strong>二、判断一棵二叉树是否是平衡二叉树。（平衡二叉树要求：树中节点左右子树树高差不超过 1。）</strong></p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isBalanced</span><span class="token punctuation">(</span><span class="token class-name">TreeNode</span> root<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>        <span class="token keyword">return</span> <span class="token function">isBalance</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">isBalance</span><span class="token punctuation">(</span><span class="token class-name">TreeNode</span> root<span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        <span class="token keyword">if</span><span class="token punctuation">(</span>root <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>        <span class="token keyword">int</span> leftLength <span class="token operator">=</span> <span class="token function">isBalance</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>        <span class="token keyword">if</span><span class="token punctuation">(</span>leftLength <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>        <span class="token keyword">int</span> rightLength <span class="token operator">=</span> <span class="token function">isBalance</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>        <span class="token keyword">if</span><span class="token punctuation">(</span>rightLength <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>leftLength<span class="token operator">-</span>rightLength<span class="token punctuation">)</span><span class="token operator">></span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token keyword">return</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>leftLength<span class="token punctuation">,</span>rightLength<span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr></table></figure></div></details>
+<h1 id="day4"><a class="anchor" href="#day4">#</a> DAY4</h1>
+<p><strong>一、【单选】go test 默认是以什么顺序执行测试的？</strong><br />
+a. 多个 module 并发执行，单 module 下多个测试并发执行<br />
+ b. 多个 module 并发执行，单 module 下多个测试串行执行<br />
+ c. 多个 module 串行执行，单 module 下多个测试并发执行<br />
+ d. 多个 module 串行执行，单 module 下多个测试串行执行</p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p>b；<br />
+多个 modules 会并发编译，然后并发执行测试，除非添加了额外的参数 - p=1。单个 modules 下多个测试会串行执行，除非在测试函数内执行 t.Parallel ()。</p>
+</div></details>
+<p><strong>二、【分布式文件处理，获取最多的 URL】如果有一个 20g 的日志文件，日志文件记录着用户访问过的 url，每一行为一个 url，给你一台 512M 的主机，找出出现次数最多的 10 个 url。</strong></p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p><strong>Top K 算法：使用堆排序算法＋大顶堆＋10 个元素的数组。</strong></p>
+<ul>
+<li>IP 地址最多有 2^32=4G 种取值情况，所以不能完全加载到内存中处理；</li>
+<li>可以考虑采用 “分而治之” 的思想，按照 IP 地址的 Hash (IP)%1024 值，把海量 IP 日志分别存储到 1024 个小文件中。这样，每个小文件最多包含 4MB 个 IP 地址；</li>
+<li>对于每一个小文件，可以构建一个 IP 为 key，出现次数为 value 的 Hash map，同时记录当前出现次数最多的那个 IP 地址；</li>
+<li>可以得到 1024 个小文件中的出现次数最多的 IP，再依据常规的排序算法得到总体上出现次数最多的 IP；</li>
+</ul>
+<p><span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTAzNzc0MDA0MTgzMDQ3">Top K 问题详解</span></p>
+</div></details>
+<h1 id="day5"><a class="anchor" href="#day5">#</a> DAY5</h1>
+<p><strong>一、【单选】使用 SQL 语句进行分组检索时，为了去掉不满足条件的分组，应当:</strong><br />
+a. 使用 WHERE 子句<br />
+ b. 在 GROUP BY 后面使用 HAVING 子句<br />
+ c. 先使用 WHERE 子句，再使用 HAVING 子句<br />
+ d. 先使用 HAVING 子句，再使用 WHERE 子句</p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p>c；<br />
+having 是对分组统计结果进行筛选，where 是对基础数据进行筛选。<br />
+为什么没有选 b：<br />
+这个与 sql 执行过程有关，where 在最开始发挥作用，having 对 group by 之后的结果发挥作用，所以选择尽量前置，降低 group by 等阶段的操作数据量。<br />
+b 的意思是把 where 的选择放到 having 里，所以相当于所有选择都后置了。</p>
+</div></details>
+<h1 id="day6"><a class="anchor" href="#day6">#</a> DAY6</h1>
+<p>略.</p>
+<h1 id="day7"><a class="anchor" href="#day7">#</a> DAY7</h1>
+<p><strong>一、【多选】下面关于 HTTP1.x 的性能优化方式，正确的有：</strong><br />
+a. 对域名进行分片，使得客户端可以创建更多的 TCP 连接提高请求并发度<br />
+ b. 设置 Connection: Keep-Alive Header 保持长连接，减少 TCP 连接握手的开销<br />
+ c. 利用 ServerPush 将页面上的关键静态资源直接推送到客户端，无需等待客户端请求<br />
+ d. 将小的静态资源直接嵌入到页面中，减少 HTTP 请求次数</p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p>a，b，d；<br />
+ServerPush 为 HTTP2 协议才具备的能力，无法应用在 HTTP1.x 的优化中。</p>
+</div></details>
+<p><strong>二、时间复杂度 O (nlogn) 空间复杂度 O (1) (非递归) 的限制下从单链表中找出第 K 大的节点 。</strong></p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p>快排思路的逆向，快排递归思路是对序列持续拆成两个子序列处理，逆向过程就是每 2 个相邻的元素做合并排序，然后每相邻 4 个相邻的元素合并排序（因为之前一轮已经使这 4 个元素由两个长度为 2 的子序列构成），然后 8 个，16 个，直到覆盖整个原始序列。</p>
+</div></details>
+<h1 id="day8"><a class="anchor" href="#day8">#</a> DAY8</h1>
+<p><strong>一、【单选】以下描述正确的是：</strong><br />
+a. 表达式和运算符都是执行计划的组成部分。<br />
+b. 在火山模型中，执行计划子节点对应的运算符执行完成后，父节点对应的运算符才能开始执行。<br />
+c. 排序算法仅仅在 Sort 运算符中使用。<br />
+d. 当使用 Index Scan 的时候，任何情况下都需要再回表读取数据。</p>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p>a； 在火山模型中，很多情况下执行计划子节点和父节点的运算符是同时执行的。排序算法也可以在 Join，Aggregation 等运算符中使用。Index Scan 如果能够覆盖所有的查询字段，不需要再回表读取数据。</p>
+</div></details>
+<p><strong>二、某应用需要一个可靠的审核管道，为大量用户提供文章的审核入口，并对接了专业的文章审核团队，请为该管道设计一个数据结构。【实现一个并发安全的环形队列】</strong><br />
+要求：</p>
+<ul>
+<li>因为审核团队的人力有限，管道要起到流量控制作用，满了之后文章无法提交审核</li>
+<li>高峰期时，多篇文章同时送审的事情常有发生，审核团队的多位同学也可能同时审核文章</li>
+<li>先提交送审的文章应先被审核</li>
+<li>进入审核管道的文章不能遗失、重复</li>
+<li>每天有大量的文章送审，要尽可能节省审核管道的开销</li>
+</ul>
+<details class="info"><summary>答案 & 解析：</summary><div>
+<p>首先，提炼题目要求：实现一个并发安全的环形队列，进阶 / 加分项是可以无锁；<br />
+然后，并发安全的环形队列的实现是相对比较简单的，主要考察数组的下标操作和边界情况的考虑；<br />
+最后，无锁主要有两个思路，考察操作系统 / 体系结构的基础是否扎实、是否具备较好的高性能并发编程思维：</p>
+<ul>
+<li>内存屏障 / 内存格栅：操作系统未开放 API，对于 C/C++ 语言可以使用编译器的支持来实现，参考 DPDP rte_ring 等。</li>
+<li>原子操作：C/C++/Java/Go/Rust 等语言都有支持，相对于内存屏障是更佳的选择。</li>
+</ul>
+</div></details>
+
+      <div class="tags">
+          <a href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 算法</a>
+          <a href="/blog/tags/%E5%88%B7%E9%A2%98/" rel="tag"><i class="ic i-tag"></i> 刷题</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-06-21 00:49:53" itemprop="dateModified" datetime="2022-06-21T00:49:53+08:00">2022-06-21</time>
+  </span>
+  <span id="posts/2022/backend/字节青训营刷题打卡/" class="item leancloud_visitors" data-flag-title="字节青训营每日一题" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>凛 <i class="ic i-at"><em>@</em></i>凛
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://shuilinzi.github.io/blog/posts/2022/backend/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%88%B7%E9%A2%98%E6%89%93%E5%8D%A1/" title="字节青训营每日一题">https://shuilinzi.github.io/blog/posts/2022/backend/字节青训营刷题打卡/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/blog/posts/2022/backend/%E7%94%A8%E6%88%B7%E4%B8%AD%E5%BF%83/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;Kerisu&#x2F;image@master&#x2F;anime&#x2F;image.33317694fa00.webp" title="用户登录权限相关">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>用户登录权限相关</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/blog/posts/2022/backend/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B~Stream%E6%B5%81/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicivghyooj20zk0m8dir.jpg" title="函数式编程~Stream流">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Java</span>
+  <h3>函数式编程~Stream流</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#day1"><span class="toc-number">1.</span> <span class="toc-text"> DAY1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#day2"><span class="toc-number">2.</span> <span class="toc-text"> DAY2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#day3"><span class="toc-number">3.</span> <span class="toc-text"> DAY3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#day4"><span class="toc-number">4.</span> <span class="toc-text"> DAY4</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#day5"><span class="toc-number">5.</span> <span class="toc-text"> DAY5</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#day6"><span class="toc-number">6.</span> <span class="toc-text"> DAY6</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#day7"><span class="toc-number">7.</span> <span class="toc-text"> DAY7</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#day8"><span class="toc-number">8.</span> <span class="toc-text"> DAY8</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/blog/posts/2022/backend/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%88%B7%E9%A2%98%E6%89%93%E5%8D%A1/" rel="bookmark" title="字节青训营每日一题">字节青训营每日一题</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="凛"
+      data-src="/blog/images/avatar.jpg">
+  <p class="name" itemprop="name">凛</p>
+  <div class="description" itemprop="description">决定未来的不是过去，而是现在。</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/blog/archives/">
+        <span class="count">37</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/blog/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/blog/tags/">
+        <span class="count">17</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NodWlsaW56aQ==" title="https:&#x2F;&#x2F;github.com&#x2F;shuilinzi"><i class="ic i-github"></i></span>
+      <span class="exturl item bilibili" data-url="aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzUxODg4NzUw" title="https:&#x2F;&#x2F;space.bilibili.com&#x2F;351888750"><i class="ic i-bilibili"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOnNodWlsaW56aUBxcS5jb20=" title="mailto:shuilinzi@qq.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/blog/books" rel="section"><i class="ic i-list-alt"></i>书单</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/friends/" rel="section"><i class="ic i-heart"></i>友链</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/blog/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/blog/posts/2022/backend/%E7%94%A8%E6%88%B7%E4%B8%AD%E5%BF%83/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/blog/posts/2022/backend/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B~Stream%E6%B5%81/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">凛 @ Lin's Blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">127k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:55</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'posts/2022/backend/字节青训营刷题打卡/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
